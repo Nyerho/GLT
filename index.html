@@ -61,10 +61,114 @@
                 <li>Trade with confidence</li>
               </ol>
             </div>
+
+            <!-- New Growth Section -->
+            <section id="growth-section" class="growth-section py-5">
+              <div class="container">
+                <div class="row mb-4">
+                  <div class="col text-center">
+                    <h2 class="growth-title">We’ll help you to grow your money</h2>
+                    <p class="text-muted">Trusted brokerage with proven results and satisfied clients worldwide.</p>
+                  </div>
+                </div>
+
+                <!-- Metrics -->
+                <div class="row g-4 mb-4">
+                  <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="metric-card">
+                      <div class="metric-label">Years of Experience</div>
+                      <div class="metric-value">
+                        <span class="metric-counter" data-target="6" data-duration="1200" data-decimals="0" data-suffix=" Years">0</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="metric-card">
+                      <div class="metric-label">Satisfaction</div>
+                      <div class="metric-value">
+                        <span class="metric-counter" data-target="99.9" data-duration="1500" data-decimals="1" data-suffix="%">0</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="metric-card">
+                      <div class="metric-label">Satisfied Clients</div>
+                      <div class="metric-value">
+                        <span class="metric-counter" data-target="876000" data-duration="1800" data-decimals="0" data-compact="kplus">0</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Image Grid -->
+                <div class="row g-3 growth-grid">
+                  <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card overflow-hidden">
+                      <div class="ratio ratio-16x9">
+                        <img class="growth-img" src="CSS/images/forex%20trading%202.jpeg" alt="Forex trading" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card overflow-hidden">
+                      <div class="ratio ratio-16x9">
+                        <img class="growth-img" src="CSS/images/Forex%20Trading.jpg" alt="Forex Trading" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card overflow-hidden">
+                      <div class="ratio ratio-16x9">
+                        <img class="growth-img" src="CSS/images/grid3.jpg" alt="Grid image 3" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card overflow-hidden">
+                      <div class="ratio ratio-16x9">
+                        <img class="growth-img" src="CSS/images/grid5.jpg" alt="Grid image 5" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card overflow-hidden">
+                      <div class="ratio ratio-21x9">
+                        <img class="growth-img" src="CSS/images/Professional%20trading%20tools.png" alt="Professional trading tools" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- End Growth Section -->
+
+            <!-- About Us Section -->
+            <section id="about-section" class="about-section py-5">
+              <div class="container">
+                <div class="row align-items-center g-4">
+                  <div class="col-12 col-md-6">
+                    <div class="about-media card overflow-hidden">
+                      <div class="ratio ratio-16x9">
+                        <img src="CSS/images/about%20us.jpg" class="about-img" alt="About Globalonlinetrading" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <h2 class="about-title">About Us</h2>
+                    <p class="about-text text-muted">
+                      We are a global brokerage focused on secure, high‑performance trading. Our platform delivers modern tools,
+                      real‑time market insights, and a seamless experience to help you grow your money confidently.
+                    </p>
+                    <a href="about.html" class="btn btn-outline-success px-4 mt-2">More</a>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- End About Us Section -->
           </div>
         </section>
         <!-- End Market Chart section -->
-  
+
         <!-- Marketing sections (minimal) -->
         <section class="stats container py-4">
           <div class="row g-3">
@@ -333,6 +437,52 @@
       import { initMarketChartSection } from "./js/marketChart.js";
       document.addEventListener("DOMContentLoaded", () => {
         initMarketChartSection();
+      });
+    </script>
+    <!-- Removed: <script type="module" src="./js/main.js"></script> (SPA bootstrap) -->
+    <script type="module">
+      document.addEventListener("DOMContentLoaded", () => {
+        const counters = document.querySelectorAll(".metric-counter");
+        if (!counters.length) return;
+    
+        const animateCounter = (el) => {
+          const target = parseFloat(el.dataset.target);
+          const duration = parseInt(el.dataset.duration || "1200", 10);
+          const suffix = el.dataset.suffix || "";
+          const decimals = parseInt(el.dataset.decimals || "0", 10);
+          const compact = el.dataset.compact || ""; // 'kplus' supported
+    
+          const startValue = 0;
+          const startTime = performance.now();
+    
+          const step = (now) => {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const value = startValue + (target - startValue) * progress;
+    
+            let text;
+            if (compact === "kplus" && value >= 1000) {
+              const k = Math.round(value / 1000);
+              text = `${k}k+`;
+            } else {
+              text = value.toFixed(decimals) + suffix;
+            }
+            el.textContent = text;
+    
+            if (progress < 1) requestAnimationFrame(step);
+          };
+    
+          requestAnimationFrame(step);
+        };
+    
+        const section = document.querySelector("#growth-section") || document.body;
+        const observer = new IntersectionObserver((entries, obs) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            counters.forEach(animateCounter);
+            obs.disconnect();
+          }
+        }, { root: null, threshold: 0.2 });
+    
+        observer.observe(section);
       });
     </script>
     <!-- Removed: <script type="module" src="./js/main.js"></script> (SPA bootstrap) -->
