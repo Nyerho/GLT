@@ -3,6 +3,7 @@
 
 let chart = null;
 let updateTimerId = null;
+let marketData = []; // hold our own data array
 
 // Seed with an initial price and volatility
 const START_PRICE = 21500;
@@ -48,21 +49,17 @@ function seedSeries(count = 60, startPrice = START_PRICE) {
 function scheduleNextUpdate() {
   const ms = Math.floor(randBetween(1000, 3000)); // 1–3 seconds
   updateTimerId = setTimeout(() => {
-    if (!chart) return;
-    const last = chart.w.globals.seriesCandleO[0].length
-      ? chart.w.config.series[0].data[chart.w.config.series[0].data.length - 1].y[3]
-      : START_PRICE;
+    if (!chart || marketData.length === 0) return;
 
-    const [o, h, l, c] = nextCandle(last);
+    const lastClose = marketData[marketData.length - 1].y[3];
+    const [o, h, l, c] = nextCandle(lastClose);
     const point = { x: new Date(), y: [o, h, l, c] };
 
     // Keep latest ~200 candles for performance
-    const nextData = chart.w.config.series[0].data.slice();
-    nextData.push(point);
-    if (nextData.length > 200) nextData.shift();
+    marketData.push(point);
+    if (marketData.length > 200) marketData.shift();
 
-    chart.updateSeries([{ data: nextData }], true);
-
+    chart.updateSeries([{ data: marketData }], true);
     scheduleNextUpdate(); // chain next update
   }, ms);
 }
@@ -76,18 +73,19 @@ export function initMarketChartSection() {
   }
 
   const seeded = seedSeries(60, START_PRICE);
+  marketData = seeded.data.slice();
 
   const options = {
     chart: {
       type: "candlestick",
       height: 420,
-      background: "#0b0f19",
-      foreColor: "#eaecef",
+      background: "#ffffff",      // light background
+      foreColor: "#0f172a",       // dark text
       animations: { enabled: true, easing: "easeinout", speed: 300 },
       toolbar: { show: true, tools: { download: true, selection: true, zoom: true, zoomin: true, zoomout: true, pan: true } }
     },
-    series: [{ data: seeded.data }],
-    title: { text: "BTC/USDT (Simulated)", align: "left", style: { color: "#93c5fd", fontSize: "14px", fontWeight: 500 } },
+    series: [{ data: marketData }],
+    title: { text: "BTC/USDT (Simulated)", align: "left", style: { color: "#16a34a", fontSize: "14px", fontWeight: 600 } },
     plotOptions: {
       candlestick: {
         colors: {
@@ -99,19 +97,19 @@ export function initMarketChartSection() {
     },
     xaxis: {
       type: "datetime",
-      labels: { style: { colors: "#94a3b8" } },
-      axisBorder: { color: "#1e293b" },
-      axisTicks: { color: "#1e293b" }
+      labels: { style: { colors: "#334155" } },
+      axisBorder: { color: "#e5e7eb" },
+      axisTicks: { color: "#e5e7eb" }
     },
     yaxis: {
       tooltip: { enabled: true },
-      labels: { style: { colors: "#94a3b8" } },
+      labels: { style: { colors: "#334155" } },
     },
     grid: {
-      borderColor: "#1e293b",
+      borderColor: "#e5e7eb",
       strokeDashArray: 3
     },
-    theme: { mode: "dark" }
+    theme: { mode: "light" }     // switch to light theme
   };
 
   chart = new window.ApexCharts(container, options);
