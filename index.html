@@ -12,22 +12,35 @@
   </head>
   <body>
     <div id="app" class="app">
-      <!-- Top Navigation -->
-      <header class="topnav">
-        <div class="nav-content container">
-          <div class="brand">
-            <span class="logo">◆</span>
-            <span class="brand-name">Globalonlinetrading</span>
+      <!-- Top Navigation (converted to Bootstrap navbar with toggle) -->
+      <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+          <div class="container">
+            <a class="navbar-brand fw-semibold" href="index.html">Globalonlinetrading</a>
+
+            <!-- Support email + KYC Confirmation button (always visible) -->
+            <div class="d-flex align-items-center ms-auto me-2 gap-2">
+              <a href="mailto:support@Globalonlinetrading.com" class="text-success text-decoration-none">
+                support@Globalonlinetrading.com
+              </a>
+              <a href="profile.html" id="btn-kyc" class="btn btn-success btn-sm">KYC Confirmation</a>
+            </div>
+
+            <!-- Toggler to reveal navigation buttons -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible navigation buttons -->
+            <div class="collapse navbar-collapse" id="mainNav">
+              <ul class="navbar-nav ms-auto mt-3 mt-lg-0">
+                <li class="nav-item me-2"><a class="btn btn-outline-success btn-sm" href="index.html">Home</a></li>
+                <li class="nav-item me-2"><a class="btn btn-outline-success btn-sm" href="login.html">Auth</a></li>
+                <li class="nav-item"><a class="btn btn-outline-success btn-sm" href="dashboard.html">Dashboard</a></li>
+              </ul>
+            </div>
           </div>
-          <nav class="links">
-            <a href="index.html" class="active">Home</a>
-            <a href="login.html">Auth</a>
-            <a href="dashboard.html">Dashboard</a>
-          </nav>
-          <div class="cta">
-            <a href="mailto:support@Globalonlinetrading.com" class="contact">support@Globalonlinetrading.com</a>
-          </div>
-        </div>
+        </nav>
       </header>
 
       <!-- Home Page -->
