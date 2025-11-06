@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Globalonlinetrading</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="app" class="app">
+      <!-- Top Navigation -->
+      <header class="topnav">
+        <div class="nav-content">
+          <div class="brand">
+            <span class="logo">◆</span>
+            <span class="brand-name">Globalonlinetrading</span>
+          </div>
+          <nav class="links">
+            <button id="nav-home" class="active">Home</button>
+            <button id="nav-about">About Us</button>
+            <button id="nav-faq">FAQ</button>
+            <button id="nav-contact">Contact Us</button>
+          </nav>
+          <div class="cta">
+            <a href="mailto:support@Globalonlinetrading.com" class="contact">support@Globalonlinetrading.com</a>
+            <button id="nav-dashboard" class="primary">Go to Dashboard</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Marketing Homepage -->
+      <section id="page-home" class="home">
+        <!-- Hero -->
+        <section class="hero">
+          <div class="hero-content">
+            <h1>Secured And Safe Financial Growth</h1>
+            <p>Trade with confidence on a modern brokerage platform built for speed, security, and clarity.</p>
+            <div class="hero-actions">
+              <button id="home-login" class="primary">Login</button>
+              <button id="home-register" class="secondary">Register</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Candlestick Ticker directly under hero -->
+        <section class="candle-strip">
+          <div class="container">
+            <canvas id="candles-canvas" width="1200" height="120"></canvas>
+          </div>
+        </section>
+        <!-- Statistics -->
+        <section class="stats container">
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <div class="stat-card">
+                <div class="stat-title">Total Deposit</div>
+                <div class="stat-value">$55B</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="stat-card">
+                <div class="stat-title">Proceeded Transactions</div>
+                <div class="stat-value">$5B</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="stat-card">
+                <div class="stat-title">Total Withdrawal</div>
+                <div class="stat-value">$3B</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Three Easy Steps -->
+        <section class="steps container">
+          <h2>Three Easy Steps</h2>
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <div class="step-item">
+                <div class="step-icon">①</div>
+                <div class="step-title">Create An Account</div>
+                <p>Get started in minutes with simple onboarding.</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="step-item">
+                <div class="step-icon">②</div>
+                <div class="step-title">Make Deposit</div>
+                <p>Fund your account securely with multiple payment options.</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="step-item">
+                <div class="step-icon">③</div>
+                <div class="step-title">Financial Growth</div>
+                <p>Invest, trade, and monitor your portfolio in real time.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <!-- Features -->
+        <section class="features container">
+          <h2>Why Choose Globalonlinetrading</h2>
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <div class="feature-card secure-safe">
+                <div class="feature-icon">★</div>
+                <div class="feature-content">
+                  <div class="feature-title">Safe and Secure</div>
+                  <p>Security-first brokerage built with industry-standard protections.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="feature-card">
+                  <div class="feature-icon">★</div>
+                  <div class="feature-content">
+                    <div class="feature-title">Instant Trading</div>
+                    <p>Lightning-fast trade execution and responsive charts.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="feature-card">
+                  <div class="feature-icon">★</div>
+                  <div class="feature-content">
+                    <div class="feature-title">Covered by Insurance</div>
+                    <p>Institutional-grade custodial safeguards for digital assets.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="feature-card">
+                  <div class="feature-icon">★</div>
+                  <div class="feature-content">
+                    <div class="feature-title">Investment for All</div>
+                    <p>Accessible investing with a user-friendly platform.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="feature-card">
+                  <div class="feature-icon">★</div>
+                  <div class="feature-content">
+                    <div class="feature-title">Bitcoin Transactions</div>
+                    <p>Simplified BTC purchase and conversion with modern workflows.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        <!-- About -->
+        <section class="about">
+          <h2>About Globalonlinetrading</h2>
+          <p>
+            Founded in 2013 by professional traders and investors, Globalonlinetrading focuses on building one of the deepest and widest liquidity pools across crypto markets. We aggregate liquidity from multiple connected venues to deliver efficient pricing, execution, and access.
+          </p>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials container">
+          <h2>What Our Clients Say</h2>
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <div class="testimonial-card">
+                <div class="testimonial-quote">“I started with $5,000 and found the platform easy to use. Monitoring growth became straightforward and transparent.”</div>
+                <div class="testimonial-name">- Allen Brewer</div>
+                <div class="testimonial-location">Verified Client</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="testimonial-card">
+                <div class="testimonial-quote">“A trustworthy platform. I saw consistent results and appreciated the clarity of the dashboard.”</div>
+                <div class="testimonial-name">- Carly Jones</div>
+                <div class="testimonial-location">Verified Client</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="testimonial-card">
+                <div class="testimonial-quote">“The experience has been wonderful—supportive team and smooth operations from deposit to trading.”</div>
+                <div class="testimonial-name">- Carilyn E</div>
+                <div class="testimonial-location">Verified Client</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="footer-grid">
+            <div class="footer-col">
+              <h3>Globalonlinetrading</h3>
+              <p>support@Globalonlinetrading.com</p>
+              <p>Copyright © 2014 Globalonlinetrading. All rights reserved.</p>
+            </div>
+            <div class="footer-col">
+              <h3>Useful Links</h3>
+              <ul>
+                <li><button id="footer-home">Home</button></li>
+                <li><button id="footer-about">About Us</button></li>
+                <li><button id="footer-faq">FAQ</button></li>
+                <li><button id="footer-contact">Contact Us</button></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h3>Address</h3>
+              <p>Global Headquarters</p>
+              <p>123 Market Street, Financial District</p>
+              <p>support@Globalonlinetrading.com</p>
+            </div>
+          </div>
+        </footer>
+      </section>
+
+      <!-- Trading Dashboard -->
+      <section id="page-dashboard" class="dashboard" hidden>
+        <div class="content container">
+          <!-- Login Panel (shown when not authenticated or when Firebase disabled) -->
+          <div id="login-panel" class="card">
+            <h2>Login to Your Dashboard</h2>
+            <div class="grid2">
+              <div>
+                <h3>Email / Password</h3>
+                <input id="auth-email" type="email" placeholder="Email" />
+                <input id="auth-password" type="password" placeholder="Password" />
+                <button id="btn-email-signin" class="primary">Sign In</button>
+              </div>
+              <div>
+                <h3>Custom Token</h3>
+                <input id="auth-token" type="text" placeholder="Paste custom token" />
+                <button id="btn-token-signin" class="secondary">Sign In with Token</button>
+                <div class="divider"></div>
+                <h3>Or</h3>
+                <button id="btn-anon-signin">Continue Anonymously</button>
+              </div>
+            </div>
+            <p class="hint">Tip: If Firebase config isn’t set, you can continue anonymously (local storage will be used).</p>
+          </div>
+
+          <!-- Account Summary -->
+          <div id="account-panel" class="card" hidden>
+            <h2>Account Summary</h2>
+            <div class="summary-grid">
+              <div class="summary-item">
+                <div class="summary-label">Balance</div>
+                <div id="account-balance" class="summary-value">$0.00</div>
+              </div>
+              <div class="summary-item">
+                <div class="summary-label">Portfolio Value</div>
+                <div id="account-portfolio" class="summary-value">$0.00</div>
+              </div>
+              <div class="summary-item">
+                <div class="summary-label">Equity</div>
+                <div id="account-equity" class="summary-value">$0.00</div>
+              </div>
+              <div class="summary-item">
+                <div class="summary-label">User</div>
+                <div id="account-user" class="summary-value">-</div>
+              </div>
+            </div>
+            <div className="actions-row">
+              <button id="btn-logout">Logout</button>
+            </div>
+          </div>
+
+          <!-- Market Prices -->
+          <div class="card">
+            <h2>Market Prices</h2>
+            <div id="prices-grid" class="prices-grid">
+              <!-- Tiles filled by JS -->
+            </div>
+          </div>
+
+          <!-- Holdings -->
+          <div class="card">
+            <h2>Holdings</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th>Quantity</th>
+                  <th>Market Value</th>
+                </tr>
+              </thead>
+              <tbody id="holdings-tbody">
+                <tr>
+                  <td colspan="3" style="text-align:center; opacity:0.7">No holdings yet</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Trade Form -->
+          <div class="card">
+            <h2>Trade</h2>
+            <div class="trade-form">
+              <label>
+                Asset
+                <select id="trade-symbol">
+                  <option value="BTC">BTC</option>
+                  <option value="ETH">ETH</option>
+                  <option value="GOOG">GOOG</option>
+                  <option value="TSLA">TSLA</option>
+                </select>
+              </label>
+              <label>
+                Side
+                <select id="trade-side">
+                  <option value="BUY">BUY</option>
+                  <option value="SELL">SELL</option>
+                </select>
+              </label>
+              <label>
+                Quantity
+                <input id="trade-qty" type="number" step="0.0001" min="0" value="0.01" />
+              </label>
+              <button id="trade-execute" class="primary">Execute Trade</button>
+              <div class="trade-info">
+                <div>Price: <span id="trade-price">$0.00</span></div>
+                <div>Est. <span id="trade-est-label">Cost</span>: <span id="trade-est">$0.00</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Market News -->
+          <div class="card">
+            <h2>Market News</h2>
+            <ul id="news-list" class="news-list"></ul>
+            <p class="hint">Powered by Gemini (set GEMINI_API_KEY in app.js). Falls back to placeholder if not configured.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bootstrap 5 JS (bundle with Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
