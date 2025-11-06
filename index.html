@@ -237,7 +237,6 @@
             <h2 class="section-title">Why Choose Globalonlinetrading</h2>
             <p class="section-subtitle text-muted mb-0">Trusted tools, secure trading, and real results</p>
           </div>
-        
           <div class="row g-4">
             <div class="col-12 col-md-4">
               <div class="feature-card d-flex align-items-start">
@@ -248,7 +247,7 @@
                 </div>
               </div>
             </div>
-        
+          
             <div class="col-12 col-md-4">
               <div class="feature-card d-flex align-items-start">
                 <div class="feature-icon me-3" aria-hidden="true">⚡</div>
@@ -258,7 +257,7 @@
                 </div>
               </div>
             </div>
-        
+          
             <div class="col-12 col-md-4">
               <div class="feature-card d-flex align-items-start">
                 <div class="feature-icon me-3" aria-hidden="true">🛠️</div>
@@ -534,3 +533,258 @@
     <!-- Removed: <script type="module" src="./js/main.js"></script> (SPA bootstrap) -->
   </body>
 </html>
+
+<!-- Testimonials: What people are Saying -->
+<section id="testimonials" class="testimonials-section container py-5">
+  <div class="section-header text-center mb-4">
+    <h2 class="section-title fw-bold">What people are Saying</h2>
+    <p class="section-subtitle text-muted small mb-0">We are trusted by thousands of users across the globe.</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="sms-card">
+        <div class="sms-header d-flex align-items-center gap-2">
+          <div class="sms-avatar" aria-hidden="true"></div>
+          <div class="sms-contact">
+            <div class="sms-name" id="smsName">Alex M. (UK)</div>
+            <div class="sms-status"><span class="sms-dot"></span> online</div>
+          </div>
+        </div>
+        <div class="sms-body">
+          <div class="sms-bubble" id="smsMessage">Trading here has been smooth and reliable — love the fast charts!</div>
+          <div class="sms-meta text-muted">
+            <span id="smsTime">2m ago</span> • <span id="smsLocation">London, UK</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slideshow logic for testimonials -->
+<script type="module">
+  document.addEventListener("DOMContentLoaded", () => {
+    const elName = document.getElementById("smsName");
+    const elMsg  = document.getElementById("smsMessage");
+    const elTime = document.getElementById("smsTime");
+    const elLoc  = document.getElementById("smsLocation");
+    const section = document.getElementById("testimonials");
+    const card = section ? section.querySelector(".sms-card") : null;
+    if (!elName || !elMsg || !section || !card) return;
+
+    const testimonials = [
+      { name: "Alex M.",   location: "London, UK",    time: "2m ago",  message: "Trading here has been smooth and reliable — love the fast charts!" },
+      { name: "Priya R.",  location: "Bengaluru, IN", time: "5m ago",  message: "Deposits and withdrawals are seamless. The support team is quick too." },
+      { name: "Diego S.",  location: "Madrid, ES",    time: "8m ago",  message: "The dark theme and crypto chart are perfect for night sessions." },
+      { name: "Mia K.",    location: "Toronto, CA",   time: "11m ago", message: "Market updates feel live — exactly what I need for scalping." },
+      { name: "Chen L.",   location: "Singapore",     time: "15m ago", message: "Clean UI and responsive dashboards. I’m impressed with the speed." },
+      { name: "Jordan P.", location: "New York, US",  time: "18m ago", message: "Transparency across the board. KYC confirmation was straightforward." },
+      { name: "Sara D.",   location: "Dubai, AE",     time: "21m ago", message: "Fees are clear and tools are powerful. Great for active traders." },
+      { name: "Ivan T.",   location: "Zagreb, HR",    time: "25m ago", message: "I can finally focus on trades. The platform feels professional." }
+    ];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    const sequence = shuffle(testimonials.slice());
+    let idx = 0;
+    let intervalId = null;
+    const fadeDuration = 250;
+    const period = 3500;
+
+    const showTestimonial = (t) => {
+      card.classList.add("fade-out");
+      setTimeout(() => {
+        elName.textContent = `${t.name} (${t.location.split(',')[0]})`;
+        elMsg.textContent  = t.message;
+        elTime.textContent = t.time;
+        elLoc.textContent  = t.location;
+        card.classList.remove("fade-out");
+        card.classList.add("fade-in");
+        setTimeout(() => card.classList.remove("fade-in"), fadeDuration);
+      }, fadeDuration);
+    };
+
+    const start = () => {
+      if (intervalId) return;
+      showTestimonial(sequence[idx]);
+      idx = (idx + 1) % sequence.length;
+      intervalId = setInterval(() => {
+        showTestimonial(sequence[idx]);
+        idx = (idx + 1) % sequence.length;
+      }, period);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) start();
+      });
+    }, { threshold: 0.25 });
+
+    observer.observe(section);
+  });
+</script>
+
+<!-- Latest Withdrawals & Deposits (twin tables) -->
+<section class="container py-5 txn-section">
+  <div class="section-header text-center mb-4">
+    <h2 class="section-title fw-bold">Latest Withdrawals & Deposits</h2>
+    <p class="section-subtitle text-muted small mb-0">Recent activity from our global community</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Latest Withdrawals -->
+    <div class="col-12 col-lg-6">
+      <div class="card txn-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span class="fw-semibold">Latest Withdrawals</span>
+          <a href="history.html" class="btn btn-outline-success btn-sm">View all</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table txn-table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Gateway</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ripple</td>
+                <td>Mrs. Barbara Tillman</td>
+                <td>$3,750</td>
+                <td>less than 1 second ago</td>
+                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+              </tr>
+              <tr>
+                <td>Bitcoin Cash</td>
+                <td>Roy Mosciski</td>
+                <td>$1,200</td>
+                <td>1 hour ago</td>
+                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+              </tr>
+              <tr>
+                <td>Bitcoin</td>
+                <td>Kelvin Berge</td>
+                <td>$1,100</td>
+                <td>7 hours ago</td>
+                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+              </tr>
+              <tr>
+                <td>Stellar</td>
+                <td>Heidi Skiles</td>
+                <td>$1,400</td>
+                <td>7 hours ago</td>
+                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+              </tr>
+              <tr>
+                <td>EOS</td>
+                <td>Green Kohler</td>
+                <td>$9,400</td>
+                <td>8 hours ago</td>
+                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+              </tr>
+              <tr>
+                <td>Bitcoin</td>
+                <td>Tia Hegmann</td>
+                <td>$2,000</td>
+                <td>14 hours ago</td>
+                <td><span class="status-badge pending"><span class="dot"></span>Pending</span></td>
+              </tr>
+              <tr>
+                <td>Ethereum</td>
+                <td>Estefania Romaguera</td>
+                <td>$5,500</td>
+                <td>16 hours ago</td>
+                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Latest Deposits -->
+    <div class="col-12 col-lg-6">
+      <div class="card txn-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span class="fw-semibold">Latest Deposits</span>
+          <a href="history.html" class="btn btn-outline-success btn-sm">View all</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table txn-table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Gateway</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bitcoin</td>
+                <td>Nathanial Jacobson</td>
+                <td>$2,180,000</td>
+                <td>1 hour ago</td>
+                <td><span class="status-badge pending"><span class="dot"></span>Pending</span></td>
+              </tr>
+              <tr>
+                <td>Bitcoin</td>
+                <td>Breanne Mosciski</td>
+                <td>$310,000</td>
+                <td>7 hours ago</td>
+                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+              </tr>
+              <tr>
+                <td>Bitcoin</td>
+                <td>Vida Hyatt</td>
+                <td>$100,000</td>
+                <td>7 hours ago</td>
+                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+              </tr>
+              <tr>
+                <td>Bitcoin Cash</td>
+                <td>Axel Hagenes</td>
+                <td>$3,000,000</td>
+                <td>8 hours ago</td>
+                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+              </tr>
+              <tr>
+                <td>Bank Transfer</td>
+                <td>Cordelia Mertz</td>
+                <td>$880,000</td>
+                <td>14 hours ago</td>
+                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+              </tr>
+              <tr>
+                <td>Bitcoin</td>
+                <td>Caden Lynch</td>
+                <td>$420,000</td>
+                <td>16 hours ago</td>
+                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+              </tr>
+              <tr>
+                <td>Ethereum</td>
+                <td>Dr. Lottie Rohan</td>
+                <td>$50,000</td>
+                <td>16 hours ago</td>
+                <td><span class="status-badge pending"><span class="dot"></span>Pending</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
