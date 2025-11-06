@@ -42,6 +42,14 @@ function getTransactions() {
 
 /* Page initializers (each page checks for its own markers) */
 function initDashboardPage() {
+  // Auth gate: redirect if not logged in
+  const user = loadUser();
+  const isAuthed = !!user && (!!user.email || !!user.username || !!user.uid);
+  if (!isAuthed) {
+    alert("Please login to access your Dashboard.");
+    location.href = "login.html";
+    return;
+  }
   const balanceEl = document.getElementById("dash-balance");
   if (!balanceEl) return;
   const acc = ensureAccount();
@@ -170,8 +178,21 @@ function initHeaderUI() {
     if (label) label.textContent = `KYC: ${normalized.charAt(0).toUpperCase()}${normalized.slice(1)}`;
   }
 
-  // Theme toggle (persisted via localStorage)
+  // Theme toggle (persisted via localStorage) + login visibility based on auth
+  const user = loadUser();
+  const isAuthed = !!user && (!!user.email || !!user.username || !!user.uid);
+
   const toggle = document.getElementById("theme-toggle");
+  const loginLink = document.getElementById("login-link");
+  if (toggle) {
+    // Show toggle only when authenticated
+    toggle.classList.toggle("d-none", !isAuthed);
+  }
+  if (loginLink) {
+    // Show Login only when NOT authenticated
+    loginLink.classList.toggle("d-none", isAuthed);
+  }
+
   const themeIcon = toggle?.querySelector(".theme-icon");
   const applyTheme = (mode) => {
     document.documentElement.setAttribute("data-theme", mode);
@@ -185,6 +206,17 @@ function initHeaderUI() {
       const next = (localStorage.getItem("theme") === "light") ? "dark" : "light";
       applyTheme(next);
     });
+  }
+
+  // KYC indicator status update remains (on pages that include it)
+  const indicator = document.getElementById("kyc-indicator");
+  if (indicator) {
+    const status = (localStorage.getItem("kycStatus") || "pending").toLowerCase();
+    indicator.classList.remove("kyc-started", "kyc-pending", "kyc-verified");
+    const normalized = ["started", "pending", "verified"].includes(status) ? status : "pending";
+    indicator.classList.add(`kyc-${normalized}`);
+    const label = indicator.querySelector(".kyc-label");
+    if (label) label.textContent = `KYC: ${normalized.charAt(0).toUpperCase()}${normalized.slice(1)}`;
   }
 }
 
