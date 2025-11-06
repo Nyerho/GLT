@@ -32,40 +32,48 @@
       </div>
 
       <!-- Advanced Chart -->
-      <div id="tv-advanced-chart" class="card p-2 mb-4"></div>
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js">
+        {
+          "autosize": true,
+          "symbol": "BITSTAMP:ETHUSD",
+          "interval": "30",
+          "timezone": "Etc/UTC",
+          "theme": "dark",
+          "style": "1",
+          "locale": "en",
+          "enable_publishing": false,
+          "range": "6M",
+          "allow_symbol_change": true,
+          "save_image": false
+        }
+        </script>
+      </div>
 
       <!-- Market Overview -->
-      <div class="card p-2">
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js">
-          {
-            "colorTheme": "light",
-            "dateRange": "1M",
-            "showChart": true,
-            "locale": "en",
-            "width": "100%",
-            "height": 550,
-            "tabs": [
-              { "title": "Crypto", "symbols": [
-                { "s": "BITSTAMP:BTCUSD" },
-                { "s": "BITSTAMP:ETHUSD" },
-                { "s": "COINBASE:SOLUSD" }
-              ]},
-              { "title": "Forex", "symbols": [
-                { "s": "FX:EURUSD" },
-                { "s": "FX:GBPUSD" },
-                { "s": "FX:USDJPY" }
-              ]},
-              { "title": "Stocks", "symbols": [
-                { "s": "NASDAQ:TSLA" },
-                { "s": "NASDAQ:NVDA" },
-                { "s": "NASDAQ:AAPL" }
-              ]}
-            ]
-          }
-          </script>
-        </div>
+      <div class="tradingview-widget-container mt-4">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js">
+        {
+          "colorTheme": "dark",
+          "dateRange": "12M",
+          "showChart": true,
+          "locale": "en",
+          "width": "100%",
+          "height": "420",
+          "tabs": [
+            {
+              "title": "Crypto",
+              "symbols": [
+                { "s": "COINBASE:BTCUSD" },
+                { "s": "COINBASE:ETHUSD" },
+                { "s": "BINANCE:BNBUSDT" }
+              ]
+            }
+          ]
+        }
+        </script>
       </div>
     </main>
 
