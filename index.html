@@ -863,5 +863,27 @@
       document.querySelectorAll('.js-year').forEach(el => el.textContent = new Date().getFullYear());
     </script>
 
+    <a id="whatsapp-fab" class="whatsapp-fab" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" data-phone="" style="position:fixed;left:1rem;bottom:1rem;width:52px;height:52px;border-radius:50%;background:var(--bs-success);color:#fff;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.1);z-index:1030;text-decoration:none;">
+      <span class="whatsapp-icon" aria-hidden="true">
+        <!-- Inline WhatsApp SVG -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M12.008 2.006c-5.522 0-9.995 4.473-9.995 9.995 0 1.762.47 3.417 1.29 4.847L2 22l5.267-1.29a9.98 9.98 0 004.74 1.197c5.522 0 9.995-4.473 9.995-9.995s-4.473-9.995-9.995-9.995z" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M16.18 14.802c-.226.637-1.329 1.196-1.86 1.226-.497.03-1.136.06-2.608-.532-2.241-.866-3.628-3.121-3.738-3.273-.11-.151-.895-1.193-.895-2.304s.562-1.586.76-1.806c.197-.22.423-.277.562-.277.14 0 .28.005.401.008.128.004.303-.049.474.361.172.41.586 1.427.64 1.53.053.104.088.227.017.364-.07.136-.106.227-.208.35-.101.123-.214.275-.306.37-.101.104-.206.22-.089.431.118.211.528.872 1.134 1.412.78.695 1.438.91 1.65 1.011.212.101.337.088.46-.053.123-.14.53-.62.67-.835.14-.214.292-.178.487-.106.196.071 1.242.586 1.456.69.214.104.352.162.404.25.053.088.053.51-.174 1.146z" fill="currentColor"/>
+        </svg>
+      </span>
+    </a>
+
+    <script>
+      // Initialize WhatsApp FAB link from data-phone (international format, e.g., 2348123456789)
+      (function(){
+        var fab = document.getElementById('whatsapp-fab');
+        if (!fab) return;
+        var phone = (fab.getAttribute('data-phone') || '').replace(/\D+/g,'');
+        var base = 'https://wa.me/';
+        var url = base + (phone ? phone : '');
+        fab.setAttribute('href', url);
+      })();
+    </script>
+
   </body>
 </html>

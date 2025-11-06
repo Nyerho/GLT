@@ -232,4 +232,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // DELETE: initMarketsPage();
   // Initialize header UI last so it can attach to header elements
   initHeaderUI();
+
+  // Build WhatsApp link
+  const fab = document.getElementById("whatsapp-fab");
+  if (fab) {
+    const phone = (fab.getAttribute("data-phone") || "").replace(/\D/g, "");
+    const text = encodeURIComponent("Hello! I need assistance with my account on GlobalOnlineTrading.");
+    const url = phone
+      ? `https://wa.me/${phone}?text=${text}`
+      : `https://wa.me/?text=${text}`;
+    fab.setAttribute("href", url);
+  }
 });

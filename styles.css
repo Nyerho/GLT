@@ -1056,3 +1056,32 @@ a:hover { color: var(--accent-3); }
 /* Slideshow transitions */
 .sms-card.fade-out { opacity: .0; transform: translateY(4px); transition: opacity .25s ease, transform .25s ease; }
 .sms-card.fade-in  { opacity: 1;  transform: translateY(0); transition: opacity .25s ease, transform .25s ease; }
+
+/* Floating WhatsApp button (FAB) */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1050;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 24px rgba(0,0,0,.45), inset 0 0 0 1px rgba(34,197,94,.25);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+.whatsapp-fab:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34,197,94,.35);
+  background: var(--surface-2);
+  box-shadow: 0 16px 32px rgba(0,0,0,.55);
+}
+.whatsapp-fab .whatsapp-icon { display: inline-flex; }
+@media (max-width: 576px) {
+  .whatsapp-fab { bottom: 16px; left: 16px; width: 42px; height: 42px; }
+}
