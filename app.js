@@ -654,3 +654,144 @@ function bootstrap() {
 }
 
 document.addEventListener("DOMContentLoaded", bootstrap);
+
+// SPA logic and helpers
+// === Auth: localStorage utilities ===
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem('glt_users')) || {}; } catch { return {}; }
+}
+function setUsers(users) {
+  localStorage.setItem('glt_users', JSON.stringify(users));
+}
+function setCurrentUser(user) {
+  localStorage.setItem('glt_current_user', JSON.stringify(user));
+}
+function getCurrentUser() {
+  try { return JSON.parse(localStorage.getItem('glt_current_user')); } catch { return null; }
+}
+
+// Attempt Firebase if available, else fallback to localStorage
+async function registerUser(email, password) {
+  if (window.firebase?.auth) {
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const user = firebase.auth().currentUser;
+    setCurrentUser({ uid: user?.uid, email: user?.email });
+    return { ok: true, provider: 'firebase' };
+  } else {
+    const users = getUsers();
+    if (users[email]) return { ok: false, error: 'Email already registered' };
+    users[email] = { password };
+    setUsers(users);
+    setCurrentUser({ email });
+    return { ok: true, provider: 'local' };
+  }
+}
+
+async function loginUser(email, password) {
+  if (window.firebase?.auth) {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    const user = firebase.auth().currentUser;
+    setCurrentUser({ uid: user?.uid, email: user?.email });
+    return { ok: true, provider: 'firebase' };
+  } else {
+    const users = getUsers();
+    if (!users[email] || users[email].password !== password) {
+      return { ok: false, error: 'Invalid email or password' };
+    }
+    setCurrentUser({ email });
+    return { ok: true, provider: 'local' };
+  }
+}
+
+async function loginAnonymous() {
+  if (window.firebase?.auth) {
+    await firebase.auth().signInAnonymously();
+    const user = firebase.auth().currentUser;
+    setCurrentUser({ uid: user?.uid, anon: true });
+    return { ok: true, provider: 'firebase' };
+  } else {
+    setCurrentUser({ email: 'guest@glt.local', anon: true });
+    return { ok: true, provider: 'local' };
+  }
+}
+
+// === Auth page setup ===
+function setupAuthPage() {
+  const navAuth = document.getElementById('nav-auth');
+  const loginForm = document.getElementById('login-form');
+  const loginEmail = document.getElementById('login-email');
+  const loginPassword = document.getElementById('login-password');
+  const loginAnonBtn = document.getElementById('login-anon');
+
+  const registerForm = document.getElementById('register-form');
+  const registerEmail = document.getElementById('register-email');
+  const registerPassword = document.getElementById('register-password');
+
+  const backBtn = document.getElementById('auth-back-home');
+
+  if (navAuth) {
+    navAuth.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('auth');
+    });
+  }
+
+  if (backBtn) {
+    backBtn.addEventListener('click', () => showPage('home'));
+  }
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = loginEmail.value.trim();
+      const password = loginPassword.value;
+      const res = await loginUser(email, password);
+      if (!res.ok) {
+        alert(res.error || 'Login failed');
+        return;
+      }
+      alert('Logged in successfully');
+      // Navigate to trading/dashboard if available, else home
+      navigatePostAuth();
+    });
+  }
+
+  if (loginAnonBtn) {
+    loginAnonBtn.addEventListener('click', async () => {
+      const res = await loginAnonymous();
+      if (!res.ok) {
+        alert(res.error || 'Guest login failed');
+        return;
+      }
+      alert('Continuing as Guest');
+      navigatePostAuth();
+    });
+  }
+
+  if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = registerEmail.value.trim();
+      const password = registerPassword.value;
+      const res = await registerUser(email, password);
+      if (!res.ok) {
+        alert(res.error || 'Registration failed');
+        return;
+      }
+      alert('Account created and logged in');
+      navigatePostAuth();
+    });
+  }
+}
+
+// Try to go to an existing trading/dashboard section; fallback to home
+function navigatePostAuth() {
+  try {
+    // If your app already has a dashboard/trading page id, this will route correctly.
+    const candidates = ['trading', 'dashboard', 'page-trading', 'page-dashboard'];
+    for (const key of candidates) {
+      try { showPage(key); return; } catch { /* ignore */ }
+    }
+  } catch { /* ignore */ }
+  showPage('home');
+}
