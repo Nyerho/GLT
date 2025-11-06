@@ -153,35 +153,9 @@ function initAuthPages() {
 }
 
 /* Markets page: switch advanced chart symbol */
-function initMarketsPage() {
-  const select = document.getElementById("market-symbol");
-  const widgetWrap = document.getElementById("tv-advanced-chart");
-  if (!select || !widgetWrap) return;
-  function loadWidget(symbol) {
-    widgetWrap.innerHTML = `
-      <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js">
-        {
-          "autosize": true,
-          "symbol": "${symbol}",
-          "interval": "15",
-          "timezone": "Etc/UTC",
-          "theme": "light",
-          "style": "1",
-          "locale": "en",
-          "enable_publishing": false,
-          "range": "3M",
-          "allow_symbol_change": true,
-          "save_image": false,
-          "studies": ["RSI@tv-basicstudies","MACD@tv-basicstudies"]
-        }
-        </script>
-      </div>`;
-  }
-  loadWidget(select.value);
-  select.addEventListener("change", () => loadWidget(select.value));
-}
+// Remove the unused Markets page embed function and its initializer
+// DELETE this whole function:
+// (Deleted) function initMarketsPage() { /* entire function removed */ }
 
 /* Kick off initializers on page load */
 document.addEventListener("DOMContentLoaded", () => {
@@ -192,5 +166,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initHistoryPage();
   initProfilePage();
   initAuthPages();
-  initMarketsPage();
+  // DELETE: initMarketsPage();
 });

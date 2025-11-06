@@ -67,8 +67,6 @@ a:hover { color: var(--accent-3); }
 .badge.bg-info-subtle { background-color: rgba(14, 165, 233, .12) !important; color: var(--info) !important; }
 .badge.bg-primary-subtle { background-color: rgba(59, 130, 246, .12) !important; color: #60a5fa !important; }
 
-/* Trading containers */
-.tradingview-widget-container { background: var(--surface); border-radius: .5rem; min-height: 420px; }
 
 /* Hero: dark overlay for readability */
 .hero {
@@ -123,7 +121,7 @@ a:hover { color: var(--accent-3); }
 .badge.bg-info-subtle { background-color: rgba(14, 165, 233, .12) !important; }
 .badge.bg-primary-subtle { background-color: rgba(59, 130, 246, .12) !important; }
 
-.tradingview-widget-container { min-height: 420px; }
+
 
 /* Dark theme overrides appended to the end */
 :root {
@@ -194,8 +192,7 @@ a:hover { color: var(--accent-3); }
 .badge.bg-info-subtle { background-color: rgba(14, 165, 233, .12) !important; color: var(--info) !important; }
 .badge.bg-primary-subtle { background-color: rgba(59, 130, 246, .12) !important; color: #60a5fa !important; }
 
-/* Trading containers */
-.tradingview-widget-container { background: var(--surface); border-radius: .5rem; min-height: 420px; }
+
 
 /* Hero: dark overlay for readability */
 .hero {
@@ -250,7 +247,6 @@ a:hover { color: var(--accent-3); }
 .badge.bg-info-subtle { background-color: rgba(14, 165, 233, .12) !important; }
 .badge.bg-primary-subtle { background-color: rgba(59, 130, 246, .12) !important; }
 
-.tradingview-widget-container { min-height: 420px; }
 
 /* Fix header overlapping hero by making header fixed and offsetting app content */
 .topnav {
