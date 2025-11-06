@@ -157,6 +157,37 @@ function initAuthPages() {
 // DELETE this whole function:
 // (Deleted) function initMarketsPage() { /* entire function removed */ }
 
+/* Header UI: KYC indicator + theme toggle */
+function initHeaderUI() {
+  // KYC indicator status from localStorage
+  const indicator = document.getElementById("kyc-indicator");
+  if (indicator) {
+    const status = (localStorage.getItem("kycStatus") || "pending").toLowerCase();
+    indicator.classList.remove("kyc-started", "kyc-pending", "kyc-verified");
+    const normalized = ["started", "pending", "verified"].includes(status) ? status : "pending";
+    indicator.classList.add(`kyc-${normalized}`);
+    const label = indicator.querySelector(".kyc-label");
+    if (label) label.textContent = `KYC: ${normalized.charAt(0).toUpperCase()}${normalized.slice(1)}`;
+  }
+
+  // Theme toggle (persisted via localStorage)
+  const toggle = document.getElementById("theme-toggle");
+  const themeIcon = toggle?.querySelector(".theme-icon");
+  const applyTheme = (mode) => {
+    document.documentElement.setAttribute("data-theme", mode);
+    localStorage.setItem("theme", mode);
+    if (themeIcon) themeIcon.textContent = mode === "light" ? "☀️" : "🌙";
+  };
+  const initialTheme = localStorage.getItem("theme") || "dark";
+  applyTheme(initialTheme);
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      const next = (localStorage.getItem("theme") === "light") ? "dark" : "light";
+      applyTheme(next);
+    });
+  }
+}
+
 /* Kick off initializers on page load */
 document.addEventListener("DOMContentLoaded", () => {
   ensureAccount(); // make sure we have a base account
@@ -167,4 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initProfilePage();
   initAuthPages();
   // DELETE: initMarketsPage();
+  // Initialize header UI last so it can attach to header elements
+  initHeaderUI();
 });
