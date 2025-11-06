@@ -1,8 +1,10 @@
+// main.js module entrypoint
 import { App, showPage, lsLoadOrInit } from "./common.js";
 import { initFirebase } from "./firebaseConfig.js";
 import { initHome } from "./home.js";
 import { initAuthPage } from "./auth.js";
 import { initDashboard } from "./dashboard.js";
+import { initMarketChartSection } from "./marketChart.js";
 
 function setupNavigation() {
   document.getElementById("nav-home")?.addEventListener("click", (e) => { e.preventDefault(); showPage("home"); });
@@ -25,6 +27,12 @@ async function bootstrap() {
 
   // Default route
   showPage("home");
+
+  // If you have a bootstrap or init flow, call the chart initializer there.
+  // Otherwise, ensure it runs after DOM is ready.
+  document.addEventListener("DOMContentLoaded", () => {
+    initMarketChartSection();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", bootstrap);
