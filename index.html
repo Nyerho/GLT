@@ -4,9 +4,11 @@
     <meta charset="utf-8" />
     <title>Globalonlinetrading</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="./styles.css" rel="stylesheet" />
+
     <!-- ApexCharts CDN (must be before your module scripts) -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   </head>
@@ -42,31 +44,31 @@
           </div>
         </nav>
       </header>
-      
-<!-- Marketwatch Ticker Tape (TOP) -->
-    <div class="container mt-2">
-      <div class="tradingview-widget-container ticker-top">
-        <div class="tradingview-widget-container__widget"></div>
-        <div class="tradingview-widget-copyright">
-          <a href="https://www.tradingview.com/" rel="noopener" target="_blank">TradingView</a>
+
+      <!-- Marketwatch Ticker Tape (TOP) -->
+      <div class="container mt-2">
+        <div class="tradingview-widget-container ticker-top">
+          <div class="tradingview-widget-container__widget"></div>
+          <div class="tradingview-widget-copyright">
+            <a href="https://www.tradingview.com/" rel="noopener" target="_blank">TradingView</a>
+          </div>
         </div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js">
+        {
+          "symbols": [
+            { "proName": "BITSTAMP:BTCUSD", "title": "BTC/USD" },
+            { "proName": "BITSTAMP:ETHUSD", "title": "ETH/USD" },
+            { "proName": "FX:EURUSD", "title": "EUR/USD" },
+            { "proName": "NASDAQ:TSLA", "title": "TSLA" }
+          ],
+          "showSymbolLogo": true,
+          "colorTheme": "dark",
+          "isTransparent": false,
+          "displayMode": "adaptive",
+          "locale": "en"
+        }
+        </script>
       </div>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js">
-      {
-        "symbols": [
-          { "proName": "BITSTAMP:BTCUSD", "title": "BTC/USD" },
-          { "proName": "BITSTAMP:ETHUSD", "title": "ETH/USD" },
-          { "proName": "FX:EURUSD", "title": "EUR/USD" },
-          { "proName": "NASDAQ:TSLA", "title": "TSLA" }
-        ],
-        "showSymbolLogo": true,
-        "colorTheme": "dark",
-        "isTransparent": false,
-        "displayMode": "adaptive",
-        "locale": "en"
-      }
-      </script>
-    </div>
 
       <!-- Home Page -->
       <section id="page-home" class="page page-home">
@@ -247,7 +249,7 @@
                 </div>
               </div>
             </div>
-          
+
             <div class="col-12 col-md-4">
               <div class="feature-card d-flex align-items-start">
                 <div class="feature-icon me-3" aria-hidden="true">⚡</div>
@@ -257,7 +259,7 @@
                 </div>
               </div>
             </div>
-          
+
             <div class="col-12 col-md-4">
               <div class="feature-card d-flex align-items-start">
                 <div class="feature-icon me-3" aria-hidden="true">🛠️</div>
@@ -270,185 +272,8 @@
           </div>
         </section>
       </section>
-
-      <!-- Auth Page -->
-      <section id="page-auth" class="page d-none">
-        <div class="container py-5">
-          <div class="row mb-4">
-            <div class="col text-center">
-              <h2 class="text-light">Account Access</h2>
-              <p class="text-muted">Login or create an account to start trading.</p>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-5">
-              <div class="card bg-dark text-light shadow">
-                <div class="card-body">
-                  <h3 class="mb-3">Login</h3>
-                  <form id="login-form" autocomplete="on">
-                    <div class="mb-3">
-                      <label for="login-email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="login-email" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="login-password" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="login-password" required minlength="6">
-                    </div>
-                    <div class="d-flex gap-2">
-                      <button type="submit" class="btn btn-success">Login</button>
-                      <button type="button" class="btn btn-outline-light" id="login-anon">Guest</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-5 mt-4 mt-md-0">
-              <div class="card bg-dark text-light shadow">
-                <div class="card-body">
-                  <h3 class="mb-3">Register</h3>
-                  <form id="register-form" autocomplete="on">
-                    <div class="mb-3">
-                      <label for="register-email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="register-email" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="register-password" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="register-password" required minlength="6">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create account</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="text-center mt-4">
-            <button class="btn btn-link text-decoration-none" id="auth-back-home">Back to Home</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Dashboard Page -->
-      <section id="page-dashboard" class="page d-none">
-        <div class="container py-4">
-          <div class="row mb-3">
-            <div class="col">
-              <h2 class="text-light">Trading Dashboard</h2>
-              <p class="text-muted">Simulated trading with live account summary.</p>
-            </div>
-          </div>
-
-          <!-- Account Summary -->
-          <div class="card mb-3">
-            <div class="card-body">
-              <h3 class="mb-3">Account Summary</h3>
-              <div class="row g-3">
-                <div class="col-12 col-md-3">
-                  <div class="summary-item">
-                    <div class="summary-label">Balance</div>
-                    <div id="account-balance" class="summary-value">$0.00</div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-3">
-                  <div class="summary-item">
-                    <div class="summary-label">Portfolio Value</div>
-                    <div id="account-portfolio" class="summary-value">$0.00</div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-3">
-                  <div class="summary-item">
-                    <div class="summary-label">Equity</div>
-                    <div id="account-equity" class="summary-value">$0.00</div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-3">
-                  <div class="summary-item">
-                    <div class="summary-label">User</div>
-                    <div id="account-user" class="summary-value">-</div>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-2">
-                <button id="btn-logout" class="btn btn-outline-danger btn-sm">Logout</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Market Prices -->
-          <div class="card mb-3">
-            <div class="card-body">
-              <h3 class="mb-3">Market Prices</h3>
-              <div id="prices-grid" class="row g-3">
-                <!-- Tiles created in dashboard.js -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Holdings -->
-          <div class="card mb-3">
-            <div class="card-body">
-              <h3 class="mb-3">Holdings</h3>
-              <table class="table table-dark table-striped">
-                <thead>
-                  <tr>
-                    <th>Asset</th>
-                    <th>Quantity</th>
-                    <th>Market Value</th>
-                  </tr>
-                </thead>
-                <tbody id="holdings-tbody">
-                  <tr>
-                    <td colspan="3" style="text-align:center; opacity:0.7">No holdings yet</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Trade Form -->
-          <div class="card mb-3">
-            <div class="card-body">
-              <h3 class="mb-3">Trade</h3>
-              <div class="row g-3 align-items-end">
-                <div class="col-12 col-md-3">
-                  <label class="form-label">Asset</label>
-                  <select id="trade-symbol" class="form-select">
-                    <option value="BTC">BTC</option>
-                    <option value="ETH">ETH</option>
-                    <option value="GOOG">GOOG</option>
-                    <option value="TSLA">TSLA</option>
-                  </select>
-                </div>
-                <div class="col-12 col-md-3">
-                  <label class="form-label">Side</label>
-                  <select id="trade-side" class="form-select">
-                    <option value="BUY">BUY</option>
-                    <option value="SELL">SELL</option>
-                  </select>
-                </div>
-                <div class="col-12 col-md-3">
-                  <label class="form-label">Quantity</label>
-                  <input id="trade-qty" type="number" step="0.0001" min="0" value="0.01" class="form-control" />
-                </div>
-                <div class="col-12 col-md-3">
-                  <button id="trade-execute" class="btn btn-success w-100">Execute Trade</button>
-                </div>
-                <div class="col-12">
-                  <div class="d-flex gap-4 text-muted">
-                    <div>Price: <span id="trade-price">$0.00</span></div>
-                    <div>Est. <span id="trade-est-label">Cost</span>: <span id="trade-est">$0.00</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
     </div>
 
-    
     <!-- TradingView Ticker Tape (BOTTOM) -->
     <div class="container mt-2">
       <div class="tradingview-widget-container">
@@ -489,21 +314,21 @@
       document.addEventListener("DOMContentLoaded", () => {
         const counters = document.querySelectorAll(".metric-counter");
         if (!counters.length) return;
-    
+
         const animateCounter = (el) => {
           const target = parseFloat(el.dataset.target);
           const duration = parseInt(el.dataset.duration || "1200", 10);
           const suffix = el.dataset.suffix || "";
           const decimals = parseInt(el.dataset.decimals || "0", 10);
           const compact = el.dataset.compact || ""; // 'kplus' supported
-    
+
           const startValue = 0;
           const startTime = performance.now();
-    
+
           const step = (now) => {
             const progress = Math.min((now - startTime) / duration, 1);
             const value = startValue + (target - startValue) * progress;
-    
+
             let text;
             if (compact === "kplus" && value >= 1000) {
               const k = Math.round(value / 1000);
@@ -512,13 +337,13 @@
               text = value.toFixed(decimals) + suffix;
             }
             el.textContent = text;
-    
+
             if (progress < 1) requestAnimationFrame(step);
           };
-    
+
           requestAnimationFrame(step);
         };
-    
+
         const section = document.querySelector("#growth-section") || document.body;
         const observer = new IntersectionObserver((entries, obs) => {
           if (entries.some((e) => e.isIntersecting)) {
@@ -526,393 +351,480 @@
             obs.disconnect();
           }
         }, { root: null, threshold: 0.2 });
-    
+
         observer.observe(section);
       });
     </script>
     <!-- Removed: <script type="module" src="./js/main.js"></script> (SPA bootstrap) -->
+
+    <!-- Testimonials: What people are Saying -->
+    <section id="testimonials" class="testimonials-section container py-5">
+      <div class="section-header text-center mb-4">
+        <h2 class="section-title fw-bold">What people are Saying</h2>
+        <p class="section-subtitle text-muted small mb-0">We are trusted by thousands of users across the globe.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+          <div class="sms-card">
+            <div class="sms-header d-flex align-items-center gap-2">
+              <div class="sms-avatar" aria-hidden="true"></div>
+              <div class="sms-contact">
+                <div class="sms-name" id="smsName">Alex M. (UK)</div>
+                <div class="sms-status"><span class="sms-dot"></span> online</div>
+              </div>
+            </div>
+            <div class="sms-body">
+              <div class="sms-bubble" id="smsMessage">Trading here has been smooth and reliable — love the fast charts!</div>
+              <div class="sms-meta text-muted">
+                <span id="smsTime">2m ago</span> • <span id="smsLocation">London, UK</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slideshow logic for testimonials -->
+    <script type="module">
+      document.addEventListener("DOMContentLoaded", () => {
+        const elName = document.getElementById("smsName");
+        const elMsg  = document.getElementById("smsMessage");
+        const elTime = document.getElementById("smsTime");
+        const elLoc  = document.getElementById("smsLocation");
+        const section = document.getElementById("testimonials");
+        const card = section ? section.querySelector(".sms-card") : null;
+        if (!elName || !elMsg || !section || !card) return;
+
+        const testimonials = [
+          { name: "Alex M.",   location: "London, UK",    time: "2m ago",  message: "Trading here has been smooth and reliable — love the fast charts!" },
+          { name: "Priya R.",  location: "Bengaluru, IN", time: "5m ago",  message: "Deposits and withdrawals are seamless. The support team is quick too." },
+          { name: "Diego S.",  location: "Madrid, ES",    time: "8m ago",  message: "The dark theme and crypto chart are perfect for night sessions." },
+          { name: "Mia K.",    location: "Toronto, CA",   time: "11m ago", message: "Market updates feel live — exactly what I need for scalping." },
+          { name: "Chen L.",   location: "Singapore",     time: "15m ago", message: "Clean UI and responsive dashboards. I’m impressed with the speed." },
+          { name: "Jordan P.", location: "New York, US",  time: "18m ago", message: "Transparency across the board. KYC confirmation was straightforward." },
+          { name: "Sara D.",   location: "Dubai, AE",     time: "21m ago", message: "Fees are clear and tools are powerful. Great for active traders." },
+          { name: "Ivan T.",   location: "Zagreb, HR",    time: "25m ago", message: "I can finally focus on trades. The platform feels professional." }
+        ];
+
+        function shuffle(arr) {
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          return arr;
+        }
+
+        const sequence = shuffle(testimonials.slice());
+        let idx = 0;
+        let intervalId = null;
+        const fadeDuration = 250;
+        const period = 3500;
+
+        const showTestimonial = (t) => {
+          card.classList.add("fade-out");
+          setTimeout(() => {
+            elName.textContent = `${t.name} (${t.location.split(',')[0]})`;
+            elMsg.textContent  = t.message;
+            elTime.textContent = t.time;
+            elLoc.textContent  = t.location;
+            card.classList.remove("fade-out");
+            card.classList.add("fade-in");
+            setTimeout(() => card.classList.remove("fade-in"), fadeDuration);
+          }, fadeDuration);
+        };
+
+        const start = () => {
+          if (intervalId) return;
+          showTestimonial(sequence[idx]);
+          idx = (idx + 1) % sequence.length;
+          intervalId = setInterval(() => {
+            showTestimonial(sequence[idx]);
+            idx = (idx + 1) % sequence.length;
+          }, period);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) start();
+          });
+        }, { threshold: 0.25 });
+
+        observer.observe(section);
+      });
+    </script>
+
+    <!-- Latest Withdrawals & Deposits (twin tables) -->
+    <section class="container py-5 txn-section">
+      <div class="section-header text-center mb-4">
+        <h2 class="section-title fw-bold">Latest Withdrawals & Deposits</h2>
+        <p class="section-subtitle text-muted small mb-0">Recent activity from our global community</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Latest Withdrawals -->
+        <div class="col-12 col-lg-6">
+          <div class="card txn-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span class="fw-semibold">Latest Withdrawals</span>
+              <a href="history.html" class="btn btn-outline-success btn-sm">View all</a>
+            </div>
+            <div class="table-responsive">
+              <table class="table txn-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>Gateway</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Ripple</td>
+                    <td>Mrs. Barbara Tillman</td>
+                    <td>$3,750</td>
+                    <td>less than 1 second ago</td>
+                    <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Bitcoin Cash</td>
+                    <td>Roy Mosciski</td>
+                    <td>$1,200</td>
+                    <td>1 hour ago</td>
+                    <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Bitcoin</td>
+                    <td>Kelvin Berge</td>
+                    <td>$1,100</td>
+                    <td>7 hours ago</td>
+                    <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Stellar</td>
+                    <td>Heidi Skiles</td>
+                    <td>$1,400</td>
+                    <td>7 hours ago</td>
+                    <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>EOS</td>
+                    <td>Green Kohler</td>
+                    <td>$9,400</td>
+                    <td>8 hours ago</td>
+                    <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Bitcoin</td>
+                    <td>Tia Hegmann</td>
+                    <td>$2,000</td>
+                    <td>14 hours ago</td>
+                    <td><span class="status-badge pending"><span class="dot"></span>Pending</span></td>
+                  </tr>
+                  <tr>
+                    <td>Ethereum</td>
+                    <td>Estefania Romaguera</td>
+                    <td>$5,500</td>
+                    <td>16 hours ago</td>
+                    <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Latest Deposits -->
+        <div class="col-12 col-lg-6">
+          <div class="card txn-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span class="fw-semibold">Latest Deposits</span>
+              <a href="history.html" class="btn btn-outline-success btn-sm">View all</a>
+            </div>
+            <div class="table-responsive">
+              <table class="table txn-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>Gateway</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Bitcoin</td>
+                    <td>Nathanial Jacobson</td>
+                    <td>$2,180,000</td>
+                    <td>1 hour ago</td>
+                    <td><span class="status-badge pending"><span class="dot"></span>Pending</span></td>
+                  </tr>
+                  <tr>
+                    <td>Bitcoin</td>
+                    <td>Breanne Mosciski</td>
+                    <td>$310,000</td>
+                    <td>7 hours ago</td>
+                    <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+                  </tr>
+                  <tr>
+                    <td>Bitcoin</td>
+                    <td>Vida Hyatt</td>
+                    <td>$100,000</td>
+                    <td>7 hours ago</td>
+                    <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+                  </tr>
+                  <tr>
+                    <td>Bitcoin Cash</td>
+                    <td>Axel Hagenes</td>
+                    <td>$3,000,000</td>
+                    <td>8 hours ago</td>
+                    <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+                  </tr>
+                  <tr>
+                    <td>Bank Transfer</td>
+                    <td>Cordelia Mertz</td>
+                    <td>$880,000</td>
+                    <td>14 hours ago</td>
+                    <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+                  </tr>
+                  <tr>
+                    <td>Bitcoin</td>
+                    <td>Caden Lynch</td>
+                    <td>$420,000</td>
+                    <td>16 hours ago</td>
+                    <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
+                  </tr>
+                  <tr>
+                    <td>Ethereum</td>
+                    <td>Dr. Lottie Rohan</td>
+                    <td>$50,000</td>
+                    <td>16 hours ago</td>
+                    <td><span class="status-badge pending"><span class="dot"></span>Pending</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Be Our Partners -->
+    <section id="partners" class="partners-section container py-5">
+      <div class="text-center mb-4">
+        <h2 class="section-title fw-bold">Be Our <span class="text-success">Partners</span></h2>
+        <p class="section-subtitle text-muted">Are you passionate about working with us? We are glad to let you know that we will always welcome you with an open arm ready to work with you in the best way</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Left hero rating panel -->
+        <div class="col-12 col-lg-4">
+          <div class="partners-panel h-100 p-4">
+            <div class="panel-title">Our Client<br>Across The Web</div>
+            <div class="rating-value">4.9</div>
+            <div class="rating-stars" aria-label="5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <div class="panel-divider my-3"></div>
+            <div class="panel-social d-flex gap-2">
+              <a href="#" class="social-pill">FB</a>
+              <a href="#" class="social-pill">X</a>
+              <a href="#" class="social-pill">FPA</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partners grid (6 items) -->
+        <div class="col-12 col-lg-8">
+          <div class="row g-4">
+            <div class="col-12 col-md-6">
+              <div class="partner-card">
+                <div class="partner-header">
+                  <div class="partner-avatar">AL</div>
+                  <div>
+                    <div class="partner-name">AlphaLedger</div>
+                    <div class="partner-meta text-muted small">Institutional Custody</div>
+                  </div>
+                </div>
+                <div class="partner-body">
+                  <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
+                  <span class="partner-badge verified">Verified</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="partner-card">
+                <div class="partner-header">
+                  <div class="partner-avatar">CT</div>
+                  <div>
+                    <div class="partner-name">CryptoTrust</div>
+                    <div class="partner-meta text-muted small">Compliance & KYC</div>
+                  </div>
+                </div>
+                <div class="partner-body">
+                  <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
+                  <span class="partner-badge verified">Verified</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="partner-card">
+                <div class="partner-header">
+                  <div class="partner-avatar">AQ</div>
+                  <div>
+                    <div class="partner-name">AlphaQuant</div>
+                    <div class="partner-meta text-muted small">Liquidity & MM</div>
+                  </div>
+                </div>
+                <div class="partner-body">
+                  <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
+                  <span class="partner-badge verified">Verified</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="partner-card">
+                <div class="partner-header">
+                  <div class="partner-avatar">BS</div>
+                  <div>
+                    <div class="partner-name">BitSecure</div>
+                    <div class="partner-meta text-muted small">Wallet Security</div>
+                  </div>
+                </div>
+                <div class="partner-body">
+                  <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
+                  <span class="partner-badge verified">Verified</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="partner-card">
+                <div class="partner-header">
+                  <div class="partner-avatar">GC</div>
+                  <div>
+                    <div class="partner-name">GreenChain</div>
+                    <div class="partner-meta text-muted small">Eco Ops</div>
+                  </div>
+                </div>
+                <div class="partner-body">
+                  <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
+                  <span class="partner-badge verified">Verified</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="partner-card">
+                <div class="partner-header">
+                  <div class="partner-avatar">NP</div>
+                  <div>
+                    <div class="partner-name">NexusPay</div>
+                    <div class="partner-meta text-muted small">Payments & Settlements</div>
+                  </div>
+                </div>
+                <div class="partner-body">
+                  <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
+                  <span class="partner-badge verified">Verified</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Site Footer -->
+    <footer class="site-footer mt-5">
+      <div class="container">
+        <!-- Top -->
+        <div class="footer-top py-4">
+          <div class="row g-4">
+            <!-- Brand -->
+            <div class="col-12 col-lg-4">
+              <div class="footer-brand">
+                <div class="footer-logo h4 mb-2">GlobalOnlineTrading</div>
+                <p class="footer-tagline mb-3">
+                  Trade smarter with institutional-grade tools, secure custody, and fast settlements across global markets.
+                </p>
+                <div class="footer-social d-flex gap-2">
+                  <a href="#" class="social-pill">FB</a>
+                  <a href="#" class="social-pill">X</a>
+                  <a href="#" class="social-pill">YT</a>
+                  <a href="#" class="social-pill">IN</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-6 col-lg-2">
+              <div class="footer-section">
+                <div class="footer-title">Quick Links</div>
+                <ul class="footer-links list-unstyled">
+                  <li><a href="index.html" class="footer-link">Home</a></li>
+                  <li><a href="markets.html" class="footer-link">Markets</a></li>
+                  <li><a href="dashboard.html" class="footer-link">Dashboard</a></li>
+                  <li><a href="profile.html" class="footer-link">Profile</a></li>
+                  <li><a href="about.html" class="footer-link">About</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Resources -->
+            <div class="col-6 col-lg-2">
+              <div class="footer-section">
+                <div class="footer-title">Resources</div>
+                <ul class="footer-links list-unstyled">
+                  <li><a href="#" class="footer-link">Support</a></li>
+                  <li><a href="#" class="footer-link">Fees</a></li>
+                  <li><a href="#" class="footer-link">Security</a></li>
+                  <li><a href="#" class="footer-link">Status</a></li>
+                  <li><a href="#" class="footer-link">Sitemap</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="col-12 col-lg-4">
+              <div class="footer-section">
+                <div class="footer-title">Stay Updated</div>
+                <p class="footer-note">Get market insights and platform updates straight to your inbox.</p>
+                <form class="footer-newsletter" onsubmit="return false">
+                  <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Enter your email" aria-label="Email address">
+                    <button class="btn btn-success btn-subscribe" type="button">Subscribe</button>
+                  </div>
+                  <small class="text-muted d-block mt-2">By subscribing, you agree to our <a href="#" class="footer-link">Privacy Policy</a>.</small>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="footer-bottom py-3 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+          <div class="footer-copy text-muted">
+            © <span class="js-year"></span> GlobalOnlineTrading. All rights reserved.
+          </div>
+          <ul class="footer-mini-links list-inline m-0">
+            <li class="list-inline-item"><a href="#" class="footer-link">Terms</a></li>
+            <li class="list-inline-item"><a href="#" class="footer-link">Privacy</a></li>
+            <li class="list-inline-item"><a href="#" class="footer-link">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Set current year in footer
+      document.querySelectorAll('.js-year').forEach(el => el.textContent = new Date().getFullYear());
+    </script>
+
   </body>
 </html>
-
-<!-- Testimonials: What people are Saying -->
-<section id="testimonials" class="testimonials-section container py-5">
-  <div class="section-header text-center mb-4">
-    <h2 class="section-title fw-bold">What people are Saying</h2>
-    <p class="section-subtitle text-muted small mb-0">We are trusted by thousands of users across the globe.</p>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6">
-      <div class="sms-card">
-        <div class="sms-header d-flex align-items-center gap-2">
-          <div class="sms-avatar" aria-hidden="true"></div>
-          <div class="sms-contact">
-            <div class="sms-name" id="smsName">Alex M. (UK)</div>
-            <div class="sms-status"><span class="sms-dot"></span> online</div>
-          </div>
-        </div>
-        <div class="sms-body">
-          <div class="sms-bubble" id="smsMessage">Trading here has been smooth and reliable — love the fast charts!</div>
-          <div class="sms-meta text-muted">
-            <span id="smsTime">2m ago</span> • <span id="smsLocation">London, UK</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Slideshow logic for testimonials -->
-<script type="module">
-  document.addEventListener("DOMContentLoaded", () => {
-    const elName = document.getElementById("smsName");
-    const elMsg  = document.getElementById("smsMessage");
-    const elTime = document.getElementById("smsTime");
-    const elLoc  = document.getElementById("smsLocation");
-    const section = document.getElementById("testimonials");
-    const card = section ? section.querySelector(".sms-card") : null;
-    if (!elName || !elMsg || !section || !card) return;
-
-    const testimonials = [
-      { name: "Alex M.",   location: "London, UK",    time: "2m ago",  message: "Trading here has been smooth and reliable — love the fast charts!" },
-      { name: "Priya R.",  location: "Bengaluru, IN", time: "5m ago",  message: "Deposits and withdrawals are seamless. The support team is quick too." },
-      { name: "Diego S.",  location: "Madrid, ES",    time: "8m ago",  message: "The dark theme and crypto chart are perfect for night sessions." },
-      { name: "Mia K.",    location: "Toronto, CA",   time: "11m ago", message: "Market updates feel live — exactly what I need for scalping." },
-      { name: "Chen L.",   location: "Singapore",     time: "15m ago", message: "Clean UI and responsive dashboards. I’m impressed with the speed." },
-      { name: "Jordan P.", location: "New York, US",  time: "18m ago", message: "Transparency across the board. KYC confirmation was straightforward." },
-      { name: "Sara D.",   location: "Dubai, AE",     time: "21m ago", message: "Fees are clear and tools are powerful. Great for active traders." },
-      { name: "Ivan T.",   location: "Zagreb, HR",    time: "25m ago", message: "I can finally focus on trades. The platform feels professional." }
-    ];
-
-    function shuffle(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
-    const sequence = shuffle(testimonials.slice());
-    let idx = 0;
-    let intervalId = null;
-    const fadeDuration = 250;
-    const period = 3500;
-
-    const showTestimonial = (t) => {
-      card.classList.add("fade-out");
-      setTimeout(() => {
-        elName.textContent = `${t.name} (${t.location.split(',')[0]})`;
-        elMsg.textContent  = t.message;
-        elTime.textContent = t.time;
-        elLoc.textContent  = t.location;
-        card.classList.remove("fade-out");
-        card.classList.add("fade-in");
-        setTimeout(() => card.classList.remove("fade-in"), fadeDuration);
-      }, fadeDuration);
-    };
-
-    const start = () => {
-      if (intervalId) return;
-      showTestimonial(sequence[idx]);
-      idx = (idx + 1) % sequence.length;
-      intervalId = setInterval(() => {
-        showTestimonial(sequence[idx]);
-        idx = (idx + 1) % sequence.length;
-      }, period);
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) start();
-      });
-    }, { threshold: 0.25 });
-
-    observer.observe(section);
-  });
-</script>
-
-<!-- Latest Withdrawals & Deposits (twin tables) -->
-<section class="container py-5 txn-section">
-  <div class="section-header text-center mb-4">
-    <h2 class="section-title fw-bold">Latest Withdrawals & Deposits</h2>
-    <p class="section-subtitle text-muted small mb-0">Recent activity from our global community</p>
-  </div>
-
-  <div class="row g-4">
-    <!-- Latest Withdrawals -->
-    <div class="col-12 col-lg-6">
-      <div class="card txn-card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <span class="fw-semibold">Latest Withdrawals</span>
-          <a href="history.html" class="btn btn-outline-success btn-sm">View all</a>
-        </div>
-        <div class="table-responsive">
-          <table class="table txn-table align-middle mb-0">
-            <thead>
-              <tr>
-                <th>Gateway</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Time</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Ripple</td>
-                <td>Mrs. Barbara Tillman</td>
-                <td>$3,750</td>
-                <td>less than 1 second ago</td>
-                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
-              </tr>
-              <tr>
-                <td>Bitcoin Cash</td>
-                <td>Roy Mosciski</td>
-                <td>$1,200</td>
-                <td>1 hour ago</td>
-                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
-              </tr>
-              <tr>
-                <td>Bitcoin</td>
-                <td>Kelvin Berge</td>
-                <td>$1,100</td>
-                <td>7 hours ago</td>
-                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
-              </tr>
-              <tr>
-                <td>Stellar</td>
-                <td>Heidi Skiles</td>
-                <td>$1,400</td>
-                <td>7 hours ago</td>
-                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
-              </tr>
-              <tr>
-                <td>EOS</td>
-                <td>Green Kohler</td>
-                <td>$9,400</td>
-                <td>8 hours ago</td>
-                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
-              </tr>
-              <tr>
-                <td>Bitcoin</td>
-                <td>Tia Hegmann</td>
-                <td>$2,000</td>
-                <td>14 hours ago</td>
-                <td><span class="status-badge pending"><span class="dot"></span>Pending</span></td>
-              </tr>
-              <tr>
-                <td>Ethereum</td>
-                <td>Estefania Romaguera</td>
-                <td>$5,500</td>
-                <td>16 hours ago</td>
-                <td><span class="status-badge completed"><span class="dot"></span>Completed</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Latest Deposits -->
-    <div class="col-12 col-lg-6">
-      <div class="card txn-card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <span class="fw-semibold">Latest Deposits</span>
-          <a href="history.html" class="btn btn-outline-success btn-sm">View all</a>
-        </div>
-        <div class="table-responsive">
-          <table class="table txn-table align-middle mb-0">
-            <thead>
-              <tr>
-                <th>Gateway</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Time</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Bitcoin</td>
-                <td>Nathanial Jacobson</td>
-                <td>$2,180,000</td>
-                <td>1 hour ago</td>
-                <td><span class="status-badge pending"><span class="dot"></span>Pending</span></td>
-              </tr>
-              <tr>
-                <td>Bitcoin</td>
-                <td>Breanne Mosciski</td>
-                <td>$310,000</td>
-                <td>7 hours ago</td>
-                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
-              </tr>
-              <tr>
-                <td>Bitcoin</td>
-                <td>Vida Hyatt</td>
-                <td>$100,000</td>
-                <td>7 hours ago</td>
-                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
-              </tr>
-              <tr>
-                <td>Bitcoin Cash</td>
-                <td>Axel Hagenes</td>
-                <td>$3,000,000</td>
-                <td>8 hours ago</td>
-                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
-              </tr>
-              <tr>
-                <td>Bank Transfer</td>
-                <td>Cordelia Mertz</td>
-                <td>$880,000</td>
-                <td>14 hours ago</td>
-                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
-              </tr>
-              <tr>
-                <td>Bitcoin</td>
-                <td>Caden Lynch</td>
-                <td>$420,000</td>
-                <td>16 hours ago</td>
-                <td><span class="status-badge successful"><span class="dot"></span>Successful</span></td>
-              </tr>
-              <tr>
-                <td>Ethereum</td>
-                <td>Dr. Lottie Rohan</td>
-                <td>$50,000</td>
-                <td>16 hours ago</td>
-                <td><span class="status-badge pending"><span class="dot"></span>Pending</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Be Our Partners -->
-<section id="partners" class="partners-section container py-5">
-  <div class="text-center mb-4">
-    <h2 class="section-title fw-bold">Be Our <span class="text-success">Partners</span></h2>
-    <p class="section-subtitle text-muted">Are you passionate about working with us? We are glad to let you know that we will always welcome you with an open arm ready to work with you in the best way</p>
-  </div>
-
-  <div class="row g-4">
-    <!-- Left hero rating panel -->
-    <div class="col-12 col-lg-4">
-      <div class="partners-panel h-100 p-4">
-        <div class="panel-title">Our Client<br>Across The Web</div>
-        <div class="rating-value">4.9</div>
-        <div class="rating-stars" aria-label="5 stars">
-          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-        </div>
-        <div class="panel-divider my-3"></div>
-        <div class="panel-social d-flex gap-2">
-          <a href="#" class="social-pill">FB</a>
-          <a href="#" class="social-pill">X</a>
-          <a href="#" class="social-pill">FPA</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Partners grid (6 items) -->
-    <div class="col-12 col-lg-8">
-      <div class="row g-4">
-        <div class="col-12 col-md-6">
-          <div class="partner-card">
-            <div class="partner-header">
-              <div class="partner-avatar">AL</div>
-              <div>
-                <div class="partner-name">AlphaLedger</div>
-                <div class="partner-meta text-muted small">Institutional Custody</div>
-              </div>
-            </div>
-            <div class="partner-body">
-              <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
-              <span class="partner-badge verified">Verified</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6">
-          <div class="partner-card">
-            <div class="partner-header">
-              <div class="partner-avatar">CT</div>
-              <div>
-                <div class="partner-name">CryptoTrust</div>
-                <div class="partner-meta text-muted small">Compliance & KYC</div>
-              </div>
-            </div>
-            <div class="partner-body">
-              <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
-              <span class="partner-badge verified">Verified</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6">
-          <div class="partner-card">
-            <div class="partner-header">
-              <div class="partner-avatar">AQ</div>
-              <div>
-                <div class="partner-name">AlphaQuant</div>
-                <div class="partner-meta text-muted small">Liquidity & MM</div>
-              </div>
-            </div>
-            <div class="partner-body">
-              <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
-              <span class="partner-badge verified">Verified</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6">
-          <div class="partner-card">
-            <div class="partner-header">
-              <div class="partner-avatar">BS</div>
-              <div>
-                <div class="partner-name">BitSecure</div>
-                <div class="partner-meta text-muted small">Wallet Security</div>
-              </div>
-            </div>
-            <div class="partner-body">
-              <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
-              <span class="partner-badge verified">Verified</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6">
-          <div class="partner-card">
-            <div class="partner-header">
-              <div class="partner-avatar">GC</div>
-              <div>
-                <div class="partner-name">GreenChain</div>
-                <div class="partner-meta text-muted small">Eco Ops</div>
-              </div>
-            </div>
-            <div class="partner-body">
-              <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
-              <span class="partner-badge verified">Verified</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6">
-          <div class="partner-card">
-            <div class="partner-header">
-              <div class="partner-avatar">NP</div>
-              <div>
-                <div class="partner-name">NexusPay</div>
-                <div class="partner-meta text-muted small">Payments & Settlements</div>
-              </div>
-            </div>
-            <div class="partner-body">
-              <div class="partner-stars text-warning">★ ★ ★ ★ ★</div>
-              <span class="partner-badge verified">Verified</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
