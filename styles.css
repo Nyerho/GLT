@@ -380,3 +380,36 @@ a:hover { color: var(--accent-3); }
 .hero .hero-content {
   padding: 2rem 0;               /* breathing space */
 }
+
+/* Chart container premium look */
+#market-chart {
+  background: linear-gradient(135deg, rgba(6, 12, 18, 1) 0%, rgba(8, 24, 18, 1) 50%, rgba(6, 30, 18, 1) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+/* ApexCharts tooltip premium theme */
+.apex-tooltip {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  padding: 8px 10px;
+  min-width: 180px;
+}
+.apex-tooltip-title {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.apex-tooltip .tt-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 2px 0;
+}
+.apex-tooltip .tt-row span:first-child {
+  color: var(--muted);
+}

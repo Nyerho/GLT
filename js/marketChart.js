@@ -9,6 +9,10 @@ let marketData = []; // maintain our own data array so updates are reliable
 const START_PRICE = 21500;
 const VOLATILITY_PCT = 0.008; // ~0.8% per candle
 
+// Faster updates to simulate "per millisecond" trade changes feel (sub-second)
+const UPDATE_MIN_MS = 120;
+const UPDATE_MAX_MS = 350;
+
 function randBetween(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -46,8 +50,10 @@ function seedSeries(count = 60, startPrice = START_PRICE) {
   return { data, lastClose: prevClose };
 }
 
+// Module: marketChart.js (initMarketChartSection, scheduleNextUpdate)
+
 function scheduleNextUpdate() {
-  const ms = Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000; // 1–3 seconds
+  const ms = Math.floor(Math.random() * (UPDATE_MAX_MS - UPDATE_MIN_MS + 1)) + UPDATE_MIN_MS;
   updateTimerId = setTimeout(() => {
     if (!chart || marketData.length === 0) return;
 
@@ -78,37 +84,75 @@ export function initMarketChartSection() {
     chart: {
       type: "candlestick",
       height: 420,
-      background: "#0b0f19",   // dark background
-      foreColor: "#eaecef",     // light text
-      animations: { enabled: true, easing: "easeinout", speed: 300 },
-      toolbar: { show: true, tools: { download: true, selection: true, zoom: true, zoomin: true, zoomout: true, pan: true } }
+      background: "transparent", // allow CSS gradient to show
+      foreColor: "#eaecef",
+      animations: {
+        enabled: true,
+        easing: "easeinout",
+        speed: 220,
+        animateGradually: { enabled: true, delay: 40 },
+        dynamicAnimation: { enabled: true, speed: 240 }
+      },
+      toolbar: { show: false } // cleaner look
     },
     series: [{ data: marketData }],
-    title: { text: "BTC/USDT (Simulated)", align: "left", style: { color: "#93c5fd", fontSize: "14px", fontWeight: 600 } },
+    title: {
+      text: "BTC/USDT (Simulated)",
+      align: "left",
+      style: { color: "#93c5fd", fontSize: "14px", fontWeight: 600 }
+    },
     plotOptions: {
       candlestick: {
         colors: {
-          upward: "#22c55e",  // green for up
-          downward: "#ef4444" // red for down
+          upward: "#22c55e",
+          downward: "#ef4444"
         },
         wick: { useFillColor: true }
       }
     },
     xaxis: {
       type: "datetime",
-      labels: { style: { colors: "#94a3b8" } },
-      axisBorder: { color: "#1e293b" },
-      axisTicks: { color: "#1e293b" }
+      labels: { style: { colors: "#a3b3c2", fontSize: "12px" } },
+      axisBorder: { show: false },
+      axisTicks: { show: false },
+      tooltip: { enabled: false }
     },
     yaxis: {
       tooltip: { enabled: true },
-      labels: { style: { colors: "#94a3b8" } },
+      labels: { style: { colors: "#a3b3c2", fontSize: "12px" } }
     },
     grid: {
-      borderColor: "#1e293b",
-      strokeDashArray: 3
+      show: false // remove grid lines
     },
-    theme: { mode: "dark" } // force dark theme
+    legend: { show: false },
+    states: {
+      hover: { filter: { type: "lighten", value: 0.12 } },
+      active: { filter: { type: "none" } }
+    },
+    tooltip: {
+      theme: "dark",
+      custom: ({ seriesIndex, dataPointIndex }) => {
+        const d = marketData[dataPointIndex];
+        if (!d) return "";
+        const [o, h, l, c] = d.y;
+        const time = new Date(d.x).toLocaleTimeString();
+        const up = c >= o;
+        const changePct = ((c - o) / o) * 100;
+        const changeColor = up ? "#22c55e" : "#ef4444";
+
+        return `
+          <div class="apex-tooltip">
+            <div class="apex-tooltip-title">${time}</div>
+            <div class="tt-row"><span>Open</span><span>${o.toFixed(2)}</span></div>
+            <div class="tt-row"><span>High</span><span>${h.toFixed(2)}</span></div>
+            <div class="tt-row"><span>Low</span><span>${l.toFixed(2)}</span></div>
+            <div class="tt-row"><span>Close</span><span>${c.toFixed(2)}</span></div>
+            <div class="tt-row"><span>Change</span><span style="color:${changeColor}">${changePct.toFixed(2)}%</span></div>
+          </div>
+        `;
+      }
+    },
+    theme: { mode: "dark" }
   };
 
   chart = new window.ApexCharts(container, options);
