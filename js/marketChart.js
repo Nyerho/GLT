@@ -3,7 +3,7 @@
 
 let chart = null;
 let updateTimerId = null;
-let marketData = []; // hold our own data array
+let marketData = []; // maintain our own data array so updates are reliable
 
 // Seed with an initial price and volatility
 const START_PRICE = 21500;
@@ -47,7 +47,7 @@ function seedSeries(count = 60, startPrice = START_PRICE) {
 }
 
 function scheduleNextUpdate() {
-  const ms = Math.floor(randBetween(1000, 3000)); // 1–3 seconds
+  const ms = Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000; // 1–3 seconds
   updateTimerId = setTimeout(() => {
     if (!chart || marketData.length === 0) return;
 
@@ -55,12 +55,11 @@ function scheduleNextUpdate() {
     const [o, h, l, c] = nextCandle(lastClose);
     const point = { x: new Date(), y: [o, h, l, c] };
 
-    // Keep latest ~200 candles for performance
     marketData.push(point);
     if (marketData.length > 200) marketData.shift();
 
     chart.updateSeries([{ data: marketData }], true);
-    scheduleNextUpdate(); // chain next update
+    scheduleNextUpdate();
   }, ms);
 }
 
@@ -79,13 +78,13 @@ export function initMarketChartSection() {
     chart: {
       type: "candlestick",
       height: 420,
-      background: "#ffffff",      // light background
-      foreColor: "#0f172a",       // dark text
+      background: "#0b0f19",   // dark background
+      foreColor: "#eaecef",     // light text
       animations: { enabled: true, easing: "easeinout", speed: 300 },
       toolbar: { show: true, tools: { download: true, selection: true, zoom: true, zoomin: true, zoomout: true, pan: true } }
     },
     series: [{ data: marketData }],
-    title: { text: "BTC/USDT (Simulated)", align: "left", style: { color: "#16a34a", fontSize: "14px", fontWeight: 600 } },
+    title: { text: "BTC/USDT (Simulated)", align: "left", style: { color: "#93c5fd", fontSize: "14px", fontWeight: 600 } },
     plotOptions: {
       candlestick: {
         colors: {
@@ -97,19 +96,19 @@ export function initMarketChartSection() {
     },
     xaxis: {
       type: "datetime",
-      labels: { style: { colors: "#334155" } },
-      axisBorder: { color: "#e5e7eb" },
-      axisTicks: { color: "#e5e7eb" }
+      labels: { style: { colors: "#94a3b8" } },
+      axisBorder: { color: "#1e293b" },
+      axisTicks: { color: "#1e293b" }
     },
     yaxis: {
       tooltip: { enabled: true },
-      labels: { style: { colors: "#334155" } },
+      labels: { style: { colors: "#94a3b8" } },
     },
     grid: {
-      borderColor: "#e5e7eb",
+      borderColor: "#1e293b",
       strokeDashArray: 3
     },
-    theme: { mode: "light" }     // switch to light theme
+    theme: { mode: "dark" } // force dark theme
   };
 
   chart = new window.ApexCharts(container, options);
