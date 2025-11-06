@@ -19,19 +19,13 @@
         <nav class="navbar navbar-expand-lg fixed-top">
           <div class="container">
             <a class="navbar-brand fw-semibold" href="index.html">Globalonlinetrading</a>
-
-            <!-- Support email + KYC Confirmation button (always visible) -->
-            <!-- Replace the button with a header actions group: theme toggle + KYC indicator -->
+      
             <div class="header-actions d-flex align-items-center gap-2">
               <button id="theme-toggle" class="btn btn-outline-success btn-sm" type="button" aria-label="Toggle theme">
                 <span class="theme-icon" data-theme="dark">🌙</span>
               </button>
-              <a href="profile.html" id="kyc-indicator" class="kyc-indicator kyc-pending" title="View/complete KYC">
-                <span class="kyc-dot"></span>
-                <span class="kyc-label">KYC: Pending</span>
-              </a>
             </div>
-
+      
             <!-- Toggler to reveal navigation buttons -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -214,24 +208,62 @@
         <!-- End Market Chart section -->
 
         <!-- Marketing sections (minimal) -->
-        <section class="stats container py-4">
-          <div class="row g-3">
+        <section class="stats container py-5">
+          <div class="row mb-3">
+            <div class="col text-center">
+              <h3 class="section-title mb-1">By the Numbers</h3>
+              <p class="section-subtitle text-muted">Operational scale and reliability you can trust.</p>
+            </div>
+          </div>
+        
+          <div class="row g-4">
             <div class="col-12 col-md-4">
               <div class="stat-card">
-                <div class="stat-title">Total Deposit</div>
-                <div class="stat-value">$55B</div>
+                <div class="stat-icon">
+                  <!-- Deposit icon -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 3v12M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="3" y="19" width="18" height="2" rx="1" fill="currentColor"></rect>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-title">Total Deposit</div>
+                  <div class="stat-value">$55B</div>
+                  <div class="stat-subtext text-muted">All-time deposits processed securely</div>
+                </div>
               </div>
             </div>
+        
             <div class="col-12 col-md-4">
               <div class="stat-card">
-                <div class="stat-title">Proceeded Transactions</div>
-                <div class="stat-value">$5B</div>
+                <div class="stat-icon">
+                  <!-- Transactions icon -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 7h10M7 12h10M7 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-title">Proceeded Transactions</div>
+                  <div class="stat-value">$5B</div>
+                  <div class="stat-subtext text-muted">High-throughput matching and settlement</div>
+                </div>
               </div>
             </div>
+        
             <div class="col-12 col-md-4">
               <div class="stat-card">
-                <div class="stat-title">Total Withdrawal</div>
-                <div class="stat-value">$3B</div>
+                <div class="stat-icon">
+                  <!-- Withdrawal icon -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 21V9M17 14l-5-5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="3" y="3" width="18" height="2" rx="1" fill="currentColor"></rect>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-title">Total Withdrawal</div>
+                  <div class="stat-value">$3B</div>
+                  <div class="stat-subtext text-muted">Fast and reliable payouts worldwide</div>
+                </div>
               </div>
             </div>
           </div>
