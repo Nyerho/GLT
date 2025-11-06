@@ -106,18 +106,18 @@ html, body {
 .summary-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .summary-value { font-size: 18px; font-weight: 700; color: var(--accent); }
 
-/* Styles for market chart section */
+/* Market chart section styles */
 .market-section {
   padding: 3rem 1rem;
-  background: #0b0f19; /* dark background */
-  color: #eaecef;      /* light text */
+  background: #0b0f19;
+  color: #eaecef;
 }
 
 .market-header {
   text-align: center;
   font-size: 1.25rem;
   letter-spacing: 0.05em;
-  color: #93c5fd; /* subtle accent */
+  color: #93c5fd;
   margin-bottom: 1.5rem;
   text-transform: uppercase;
 }
@@ -150,7 +150,7 @@ html, body {
 .market-cta h3 {
   margin: 0 0 0.5rem 0;
   font-weight: 600;
-  color: #a3e635; /* CTA accent */
+  color: #a3e635;
 }
 
 .market-cta .steps {

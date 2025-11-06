@@ -28,11 +28,7 @@ async function bootstrap() {
   // Default route
   showPage("home");
 
-  // If you have a bootstrap or init flow, call the chart initializer there.
-  // Otherwise, ensure it runs after DOM is ready.
-  document.addEventListener("DOMContentLoaded", () => {
-    initMarketChartSection();
-  });
+  initMarketChartSection();
 }
 
 document.addEventListener("DOMContentLoaded", bootstrap);
