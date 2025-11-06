@@ -20,9 +20,9 @@
             <span class="brand-name">Globalonlinetrading</span>
           </div>
           <nav class="links">
-            <button id="nav-home" class="active">Home</button>
-            <button id="nav-auth">Auth</button>
-            <button id="nav-dashboard">Dashboard</button>
+            <a href="index.html" class="active">Home</a>
+            <a href="login.html">Auth</a>
+            <a href="dashboard.html">Dashboard</a>
           </nav>
           <div class="cta">
             <a href="mailto:support@Globalonlinetrading.com" class="contact">support@Globalonlinetrading.com</a>
@@ -38,8 +38,8 @@
             <h1>Secured And Safe Financial Growth</h1>
             <p>Trade with confidence on a modern brokerage platform built for speed, security, and clarity.</p>
             <div class="hero-actions">
-              <button id="home-login" class="btn btn-success">Login</button>
-              <button id="home-register" class="btn btn-outline-light">Register</button>
+              <a href="login.html" class="btn btn-success">Login</a>
+              <a href="register.html" class="btn btn-outline-success">Register</a>
             </div>
           </div>
         </section>
@@ -48,11 +48,11 @@
         <section id="market-section" class="market-section">
           <div class="container">
             <h2 class="market-header">PRO CRYPTO MARKET PER MILLISECOND TRADE CHANGES</h2>
-  
+
             <div class="chart-card">
               <div id="market-chart"></div>
             </div>
-  
+
             <div class="market-cta">
               <h3>Three Easy Steps</h3>
               <ol class="steps">
@@ -327,7 +327,14 @@
 
     <!-- Bootstrap 5 JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Entry module: imports all page scripts -->
-    <script type="module" src="./js/main.js"></script>
+
+    <!-- Standalone: initialize only the market chart on the landing page -->
+    <script type="module">
+      import { initMarketChartSection } from "./js/marketChart.js";
+      document.addEventListener("DOMContentLoaded", () => {
+        initMarketChartSection();
+      });
+    </script>
+    <!-- Removed: <script type="module" src="./js/main.js"></script> (SPA bootstrap) -->
   </body>
 </html>

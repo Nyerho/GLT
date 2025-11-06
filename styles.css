@@ -36,15 +36,16 @@ html, body {
 }
 .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; }
 .logo { color: var(--accent); }
-.links button {
+/* Header nav links (standalone mode) */
+.links a {
   background: transparent;
   border: 1px solid transparent;
   color: var(--text);
   padding: 6px 10px;
   border-radius: 8px;
-  cursor: pointer;
+  text-decoration: none;
 }
-.links button.active, .links button:hover { border-color: var(--border); }
+.links a.active, .links a:hover { border-color: var(--border); }
 .cta .contact { color: var(--muted); text-decoration: none; }
 .cta .contact:hover { color: var(--text); }
 
