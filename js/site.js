@@ -121,6 +121,24 @@ function initProfilePage() {
     alert("Profile updated.");
   });
 }
+function populateCurrenciesDatalist() {
+  const dl = document.getElementById("currencies");
+  if (!dl) return;
+  const currencies = [
+    "USD - US Dollar","EUR - Euro","GBP - British Pound","NGN - Nigerian Naira","JPY - Japanese Yen","CAD - Canadian Dollar","AUD - Australian Dollar","CHF - Swiss Franc","CNY - Chinese Yuan","HKD - Hong Kong Dollar",
+    "SGD - Singapore Dollar","NZD - New Zealand Dollar","ZAR - South African Rand","BRL - Brazilian Real","INR - Indian Rupee","RUB - Russian Ruble","TRY - Turkish Lira","MXN - Mexican Peso","KRW - South Korean Won","SEK - Swedish Krona",
+    "NOK - Norwegian Krone","DKK - Danish Krone","PLN - Polish Zloty","HUF - Hungarian Forint","CZK - Czech Koruna","AED - UAE Dirham","SAR - Saudi Riyal","QAR - Qatari Riyal","KWD - Kuwaiti Dinar","BHD - Bahraini Dinar",
+    "OMR - Omani Rial","THB - Thai Baht","MYR - Malaysian Ringgit","IDR - Indonesian Rupiah","PHP - Philippine Peso","VND - Vietnamese Dong","PKR - Pakistani Rupee","BDT - Bangladeshi Taka","LKR - Sri Lankan Rupee","NPR - Nepalese Rupee",
+    "EGP - Egyptian Pound","DZD - Algerian Dinar","TND - Tunisian Dinar","MAD - Moroccan Dirham","GHS - Ghanaian Cedi","KES - Kenyan Shilling","UGX - Ugandan Shilling","TZS - Tanzanian Shilling","RWF - Rwandan Franc","ETB - Ethiopian Birr",
+    "XOF - West African CFA Franc","XAF - Central African CFA Franc","XPF - CFP Franc","UAH - Ukrainian Hryvnia","RON - Romanian Leu","BGN - Bulgarian Lev","HRK - Croatian Kuna","RSD - Serbian Dinar","ISK - Icelandic Krona","MDL - Moldovan Leu",
+    "GEL - Georgian Lari","AZN - Azerbaijani Manat","AMD - Armenian Dram","KZT - Kazakhstani Tenge","UZS - Uzbekistani Som","TJS - Tajikistani Somoni","KGS - Kyrgyzstani Som","BYN - Belarusian Ruble","ILS - Israeli New Shekel","JOD - Jordanian Dinar",
+    "LBP - Lebanese Pound","IQD - Iraqi Dinar","IRR - Iranian Rial","AFN - Afghan Afghani","SYP - Syrian Pound","YER - Yemeni Rial","MNT - Mongolian Tugrik","MOP - Macanese Pataca","TWD - New Taiwan Dollar","KHR - Cambodian Riel",
+    "LAK - Lao Kip","MMK - Burmese Kyat","BND - Brunei Dollar","BWP - Botswana Pula","ZMW - Zambian Kwacha","MWK - Malawian Kwacha","MZN - Mozambican Metical","AOA - Angolan Kwanza","NAD - Namibian Dollar","BBD - Barbadian Dollar",
+    "TTD - Trinidad and Tobago Dollar","JMD - Jamaican Dollar","DOP - Dominican Peso","PEN - Peruvian Sol","ARS - Argentine Peso","CLP - Chilean Peso","COP - Colombian Peso","UYU - Uruguayan Peso","PYG - Paraguayan Guarani","BOB - Boliviano",
+    "VES - Venezuelan Bolívar","CRC - Costa Rican Colón","GTQ - Guatemalan Quetzal","HNL - Honduran Lempira","NIO - Nicaraguan Córdoba","SVC - Salvadoran Colón","BSD - Bahamian Dollar","BZD - Belize Dollar","GYD - Guyanese Dollar","SRD - Surinamese Dollar"
+  ];
+  dl.innerHTML = currencies.map(c => `<option value="${c}"></option>`).join("");
+}
 function initAuthPages() {
   const loginForm = document.getElementById("login-form");
   if (loginForm) {
@@ -128,23 +146,68 @@ function initAuthPages() {
       e.preventDefault();
       const email = document.getElementById("login-email").value.trim();
       const password = document.getElementById("login-password").value.trim();
-      if (!email || password.length < 6) return alert("Invalid credentials.");
-      saveUser({ email, username: email.split("@")[0] });
+      if (!email || password.length < 6) {
+        alert("Invalid credentials. Please check your email and password.");
+        return;
+      }
+      const remember = document.getElementById("login-remember")?.checked;
+      const user = loadUser() || {};
+      const next = { ...user, email, username: user.username || email.split("@")[0] };
+      saveUser(next);
+      alert("Login successful. Redirecting…");
       location.href = "dashboard.html";
     });
   }
   const registerForm = document.getElementById("register-form");
   if (registerForm) {
+    populateCountriesDatalist();
+    populateCurrenciesDatalist();
     registerForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const email = document.getElementById("register-email").value.trim();
+      const first = document.getElementById("register-first").value.trim();
+      const last = document.getElementById("register-last").value.trim();
       const username = document.getElementById("register-username").value.trim();
+      const email = document.getElementById("register-email").value.trim();
       const password = document.getElementById("register-password").value.trim();
+      const phone = document.getElementById("register-phone").value.trim();
       const country = document.getElementById("register-country").value.trim();
-      if (!email || !username || password.length < 6) return alert("Please fill all fields correctly.");
-      saveUser({ email, username, country });
-      ensureAccount(); // create account storage if missing
-      alert("Account created. Redirecting to Dashboard...");
+      const city = document.getElementById("register-city").value.trim();
+      const address = document.getElementById("register-address").value.trim();
+      const dob = document.getElementById("register-dob").value;
+      const nationality = document.getElementById("register-nationality").value.trim();
+      const idType = document.getElementById("register-idtype").value;
+      const idNumber = document.getElementById("register-idnumber").value.trim();
+      const employment = document.getElementById("register-employment").value;
+      const sof = document.getElementById("register-sof").value;
+      const experience = document.getElementById("register-experience").value;
+      const risk = document.getElementById("register-risk").value;
+      const objective = document.getElementById("register-objective").value;
+      const currency = document.getElementById("register-currency").value.trim();
+      const income = document.getElementById("register-income").value;
+      const networth = document.getElementById("register-networth").value;
+      const pep = document.getElementById("register-pep").checked;
+      const kyc = document.getElementById("register-kyc").checked;
+      const aml = document.getElementById("register-aml").checked;
+      const terms = document.getElementById("register-terms").checked;
+
+      if (!first || !last || !username || !email || password.length < 6 || !phone || !country || !city || !address ||
+          !dob || !nationality || !idType || !idNumber || !employment || !sof || !experience || !risk ||
+          !objective || !currency || !income || !networth || !kyc || !aml || !terms) {
+        alert("Please complete all required fields and accept the necessary agreements.");
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+      const profile = {
+        first, last, username, email, phone, country, city, address,
+        dob, nationality, idType, idNumber, employment, sof, experience, risk,
+        objective, currency, income, networth, pep, kyc, aml
+      };
+      saveUser(profile);
+      ensureAccount();
+      alert("Registration successful. Redirecting to Dashboard…");
       location.href = "dashboard.html";
     });
   }

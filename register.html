@@ -6,20 +6,191 @@
 <nav class="navbar navbar-expand-lg bg-white border-bottom mb-3">
   <div class="container"><a class="navbar-brand" href="index.html">Globalonlinetrading</a></div>
 </nav>
-<main class="container py-4" style="max-width:740px">
-  <h1 class="mb-3">Create Account</h1>
-  <form id="register-form">
-    <div class="row g-3">
-      <div class="col-md-6"><label class="form-label">Email</label><input id="register-email" type="email" class="form-control" required /></div>
-      <div class="col-md-6"><label class="form-label">Username</label><input id="register-username" type="text" class="form-control" required /></div>
-      <div class="col-md-6"><label class="form-label">Password</label><input id="register-password" type="password" class="form-control" required minlength="6" /></div>
-      <div class="col-md-6"><label class="form-label">Country</label><input id="register-country" type="text" class="form-control" /></div>
+<main class="auth-hero">
+  <div class="auth-overlay"></div>
+  <div class="container py-5 auth-section" style="max-width:980px">
+    <div class="auth-card p-4 p-md-5 shadow-sm">
+      <div class="mb-4 text-center">
+        <h1 class="form-title mb-2">Create your account</h1>
+        <p class="form-subtitle mb-0">Join GlobalOnlineTrading to start investing confidently</p>
+      </div>
+      <form id="register-form" novalidate>
+        <!-- Personal Information -->
+        <h6 class="form-section-title">Personal Information</h6>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">First name</label>
+            <input id="register-first" type="text" class="form-control" required placeholder="John" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Last name</label>
+            <input id="register-last" type="text" class="form-control" required placeholder="Doe" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Username</label>
+            <input id="register-username" type="text" class="form-control" required placeholder="johndoe" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input id="register-email" type="email" class="form-control" required placeholder="you@example.com" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input id="register-password" type="password" class="form-control" required minlength="6" placeholder="Choose a strong password" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Phone</label>
+            <input id="register-phone" type="tel" class="form-control" required placeholder="+2348123456789" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Country</label>
+            <input id="register-country" class="form-control" list="countries" required placeholder="Select or type your country" />
+            <datalist id="countries"></datalist>
+            <div class="form-text">All countries are allowed. If not listed, simply type your country.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">City</label>
+            <input id="register-city" type="text" class="form-control" required placeholder="Lagos" />
+          </div>
+          <div class="col-12">
+            <label class="form-label">Address</label>
+            <input id="register-address" type="text" class="form-control" required placeholder="Street, number, area" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Date of Birth</label>
+            <input id="register-dob" type="date" class="form-control" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Nationality</label>
+            <input id="register-nationality" class="form-control" list="countries" required placeholder="Select or type your nationality" />
+          </div>
+        </div>
+
+        <hr class="form-divider my-4" />
+
+        <!-- Regulatory & Suitability -->
+        <h6 class="form-section-title">Regulatory & Suitability</h6>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">ID Type</label>
+            <select id="register-idtype" class="form-select" required>
+              <option value="">Choose...</option>
+              <option>Passport</option>
+              <option>National ID</option>
+              <option>Driver’s License</option>
+              <option>Voter’s Card</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">ID Number</label>
+            <input id="register-idnumber" type="text" class="form-control" required placeholder="Document number" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Employment Status</label>
+            <select id="register-employment" class="form-select" required>
+              <option value="">Choose...</option>
+              <option>Employed</option>
+              <option>Self-employed</option>
+              <option>Unemployed</option>
+              <option>Student</option>
+              <option>Retired</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Source of Funds</label>
+            <select id="register-sof" class="form-select" required>
+              <option value="">Choose...</option>
+              <option>Salary</option>
+              <option>Business Income</option>
+              <option>Savings</option>
+              <option>Investments</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Trading Experience</label>
+            <select id="register-experience" class="form-select" required>
+              <option value="">Choose...</option>
+              <option>None</option>
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Risk Tolerance</label>
+            <select id="register-risk" class="form-select" required>
+              <option value="">Choose...</option>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Investment Objective</label>
+            <select id="register-objective" class="form-select" required>
+              <option value="">Choose...</option>
+              <option>Capital Preservation</option>
+              <option>Income</option>
+              <option>Growth</option>
+              <option>Speculation</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <!-- Registration form -->
+            <label class="form-label">Preferred currency</label>
+            <input id="register-currency" class="form-control" list="currencies" required placeholder="Select or type your currency" />
+            <datalist id="currencies"></datalist>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Annual Income</label>
+            <select id="register-income" class="form-select" required>
+              <option value="">Choose...</option>
+              <option><$10,000</option>
+              <option>$10,000 - $50,000</option>
+              <option>$50,000 - $100,000</option>
+              <option>$100,000 - $250,000</option>
+              <option>>$250,000</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Net Worth</label>
+            <select id="register-networth" class="form-select" required>
+              <option value="">Choose...</option>
+              <option><$25,000</option>
+              <option>$25,000 - $100,000</option>
+              <option>$100,000 - $500,000</option>
+              <option>$500,000 - $1,000,000</option>
+              <option>>$1,000,000</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-check mt-3">
+          <input class="form-check-input" type="checkbox" id="register-pep">
+          <label class="form-check-label" for="register-pep">I am a Politically Exposed Person (PEP)</label>
+        </div>
+
+        <div class="form-check mt-2">
+          <input class="form-check-input" type="checkbox" id="register-kyc" required>
+          <label class="form-check-label" for="register-kyc">I consent to KYC verification</label>
+        </div>
+        <div class="form-check mt-2">
+          <input class="form-check-input" type="checkbox" id="register-aml" required>
+          <label class="form-check-label" for="register-aml">I agree to AML policies</label>
+        </div>
+        <div class="form-check mt-2">
+          <input class="form-check-input" type="checkbox" id="register-terms" required>
+          <label class="form-check-label" for="register-terms">I agree to the Terms of Service and Privacy Policy</label>
+        </div>
+
+        <div class="mt-3 d-flex gap-2">
+          <button class="btn btn-success" type="submit">Create account</button>
+          <a class="btn btn-outline-success" href="login.html">Already have an account? Login</a>
+        </div>
+      </form>
     </div>
-    <div class="mt-3 d-flex gap-2">
-      <button class="btn btn-success" type="submit">Register</button>
-      <a class="btn btn-outline-success" href="login.html">Login</a>
-    </div>
-  </form>
+  </div>
 </main>
 <footer class="border-top py-3 mt-4"><div class="container"><small>© 2025 Globalonlinetrading</small></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

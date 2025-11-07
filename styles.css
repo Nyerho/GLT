@@ -1085,3 +1085,60 @@ a:hover { color: var(--accent-3); }
 @media (max-width: 576px) {
   .whatsapp-fab { bottom: 16px; left: 16px; width: 42px; height: 42px; }
 }
+
+/* Auth pages styling */
+.auth-hero {
+  position: relative;
+  min-height: calc(100vh - 84px);
+  background-image: url('CSS/images/auth.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+.auth-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1200px circle at 10% 90%, rgba(34,197,94,.15), transparent 60%),
+              linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.55));
+  pointer-events: none;
+}
+.auth-section { position: relative; z-index: 1; color: var(--text); }
+.auth-card {
+  background: rgba(17, 24, 39, .85);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+}
+.form-title {
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.form-subtitle { color: rgba(255,255,255,.75); }
+.form-section-title {
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: .5rem;
+}
+.form-divider {
+  border-color: var(--border);
+  opacity: .6;
+}
+.form-control, .form-select {
+  background-color: rgba(255,255,255,.04);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.form-control::placeholder { color: rgba(255,255,255,.5); }
+.form-control:focus, .form-select:focus {
+  border-color: rgba(34,197,94,.55);
+  box-shadow: 0 0 0 .2rem rgba(34,197,94,.18);
+}
+.link-accent {
+  color: var(--accent);
+  text-decoration: none;
+}
+.link-accent:hover { text-decoration: underline; }
