@@ -2,6 +2,8 @@
 const LS_USER = "glt_user";
 const LS_ACCOUNT = "glt_account";
 const LS_TX = "glt_transactions";
+const LS_USERS = "glt_users"; // registry of all users
+const ADMIN_EMAILS = ["admin@globalonlinetrading.local"];
 
 function formatCurrency(n) {
   try { return n.toLocaleString(undefined, { style: "currency", currency: "USD", maximumFractionDigits: 2 }); }
@@ -149,22 +151,31 @@ function initAuthPages() {
       e.preventDefault();
       const email = document.getElementById("login-email").value.trim();
       const password = document.getElementById("login-password").value.trim();
-      if (!email || password.length < 6) {
-        alert("Invalid credentials. Please check your email and password.");
-        return;
+      if (!email || password.length < 6) return alert("Invalid credentials. Please check your email and password.");
+
+      // Validate against registry if exists
+      const regUser = findUserByEmail(email);
+      if (regUser) {
+        if ((regUser.password || "") !== password) return alert("Invalid email or password.");
+        // Seed admin role if email matches ADMIN_EMAILS
+        const role = ADMIN_EMAILS.includes(email.toLowerCase()) ? "admin" : (regUser.role || "user");
+        const current = { ...regUser, role };
+        saveUser(current);
+      } else {
+        // Fallback legacy: allow login and create session (no registry) - prototype behavior
+        saveUser({ email, username: email.split("@")[0], role: ADMIN_EMAILS.includes(email.toLowerCase()) ? "admin" : "user" });
       }
-      const remember = document.getElementById("login-remember")?.checked;
-      const user = loadUser() || {};
-      const next = { ...user, email, username: user.username || email.split("@")[0] };
-      saveUser(next);
       alert("Login successful. Redirecting…");
       location.href = "dashboard.html";
     });
   }
+
   const registerForm = document.getElementById("register-form");
   if (registerForm) {
-    populateCountriesDatalist();
-    populateCurrenciesDatalist();
+    // Populate assistive lists
+    if (typeof populateCountriesDatalist === "function") populateCountriesDatalist();
+    if (typeof populateCurrenciesDatalist === "function") populateCurrenciesDatalist();
+
     registerForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const first = document.getElementById("register-first").value.trim();
@@ -203,27 +214,159 @@ function initAuthPages() {
         alert("Please enter a valid email address.");
         return;
       }
+
       const profile = {
-        first, last, username, email, phone, country, city, address,
+        first, last, username, email, password, phone, country, city, address,
         dob, nationality, idType, idNumber, employment, sof, experience, risk,
-        objective, currency, income, networth, pep, kyc, aml
+        objective, currency, income, networth, pep, kyc, aml, role: "user"
       };
-      saveUser(profile);
+      const res = addUserToRegistry(profile);
+      if (!res.ok) return alert(res.error || "Registration failed.");
+
+      // Set current session
+      saveUser(res.user);
       ensureAccount();
       alert("Registration successful. Redirecting to Dashboard…");
       location.href = "dashboard.html";
     });
   }
+
   const forgotForm = document.getElementById("forgot-form");
   if (forgotForm) {
     forgotForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const email = document.getElementById("forgot-email").value.trim();
-      if (!email) return alert("Enter your email.");
+      if (!email) return alert("Enter your email to receive a reset link.");
       alert("If this email exists, a reset link has been sent.");
       location.href = "login.html";
     });
   }
+}
+
+// Admin page initializer and CRUD
+function initAdminPage() {
+  const tbody = document.getElementById("admin-users-tbody");
+  if (!tbody) return; // only run on admin page
+
+  // Gate: must be logged in and admin
+  const current = loadUser();
+  const authed = !!current && (!!current.email || !!current.username || !!current.uid);
+  const isAdmin = authed && ((current.role === "admin") || ADMIN_EMAILS.includes((current.email || "").toLowerCase()));
+  if (!authed) {
+    alert("Please login to access Admin.");
+    location.href = "login.html";
+    return;
+  }
+  if (!isAdmin) {
+    alert("Admin access required.");
+    location.href = "dashboard.html";
+    return;
+  }
+
+  const render = () => {
+    const list = getUsersRegistry();
+    tbody.innerHTML = list.length
+      ? list.map((u, idx) => `
+        <tr data-id="${u.id}">
+          <td>${idx + 1}</td>
+          <td>${(u.first || "")} ${(u.last || "")}</td>
+          <td>${u.email || ""}</td>
+          <td>${u.username || ""}</td>
+          <td>${u.phone || ""}</td>
+          <td>${u.country || ""}</td>
+          <td><span class="badge ${u.role === "admin" ? "text-bg-success" : "text-bg-secondary"}">${u.role || "user"}</span></td>
+          <td>
+            <button class="btn btn-sm btn-outline-success admin-edit">Edit</button>
+            <button class="btn btn-sm btn-outline-danger admin-delete">Delete</button>
+          </td>
+        </tr>
+      `).join("")
+      : `<tr><td colspan="8" class="text-center text-muted">No users found</td></tr>`;
+  };
+
+  // Modal helpers
+  const modalEl = document.getElementById("admin-user-modal");
+  const modal = new bootstrap.Modal(modalEl);
+  const form = document.getElementById("admin-user-form");
+  const setFormValues = (u) => {
+    document.getElementById("admin-user-id").value = u?.id || "";
+    document.getElementById("admin-first").value = u?.first || "";
+    document.getElementById("admin-last").value = u?.last || "";
+    document.getElementById("admin-email").value = u?.email || "";
+    document.getElementById("admin-username").value = u?.username || "";
+    document.getElementById("admin-phone").value = u?.phone || "";
+    document.getElementById("admin-country").value = u?.country || "";
+    document.getElementById("admin-role").value = u?.role || "user";
+    document.getElementById("admin-password").value = "";
+  };
+
+  // Create new user
+  document.getElementById("admin-create-user").addEventListener("click", () => {
+    setFormValues({ role: "user" });
+    document.getElementById("admin-user-modal-title").textContent = "Create User";
+    modal.show();
+  });
+
+  // Edit existing user
+  tbody.addEventListener("click", (e) => {
+    const rowBtn = e.target.closest("button");
+    const row = e.target.closest("tr");
+    if (!row || !rowBtn) return;
+    const id = row.getAttribute("data-id");
+    if (rowBtn.classList.contains("admin-edit")) {
+      const u = getUsersRegistry().find(x => x.id === id);
+      if (!u) return;
+      setFormValues(u);
+      document.getElementById("admin-user-modal-title").textContent = "Edit User";
+      modal.show();
+    } else if (rowBtn.classList.contains("admin-delete")) {
+      if (confirm("Delete this user?")) {
+        deleteUserFromRegistry(id);
+        // If deleting the current session user, clear session
+        const cur = loadUser();
+        if (cur && cur.id === id) saveUser(null);
+        render();
+      }
+    }
+  });
+
+  // Save create/edit
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const id = document.getElementById("admin-user-id").value;
+    const first = document.getElementById("admin-first").value.trim();
+    const last = document.getElementById("admin-last").value.trim();
+    const email = document.getElementById("admin-email").value.trim();
+    const username = document.getElementById("admin-username").value.trim();
+    const phone = document.getElementById("admin-phone").value.trim();
+    const country = document.getElementById("admin-country").value.trim();
+    const role = document.getElementById("admin-role").value;
+    const password = document.getElementById("admin-password").value.trim();
+
+    if (!first || !last || !email || !username) {
+      alert("Please fill required fields (first, last, email, username).");
+      return;
+    }
+    if (!id) {
+      // Create
+      const res = addUserToRegistry({ first, last, email, username, phone, country, role, password });
+      if (!res.ok) return alert(res.error || "Could not create user.");
+    } else {
+      // Update
+      const updates = { first, last, email, username, phone, country, role };
+      if (password) updates.password = password;
+      const res = updateUserInRegistry(id, updates);
+      if (!res.ok) return alert(res.error || "Could not update user.");
+      // Keep session in sync if editing current user
+      const cur = loadUser();
+      if (cur && cur.id === id) saveUser({ ...cur, ...res.user });
+    }
+    modal.hide();
+    render();
+  });
+
+  // Initial render
+  render();
 }
 
 /* Markets page: switch advanced chart symbol */
@@ -310,3 +453,38 @@ document.addEventListener("DOMContentLoaded", () => {
     fab.setAttribute("href", url);
   }
 });
+
+function getUsersRegistry() {
+  const raw = localStorage.getItem(LS_USERS);
+  return raw ? JSON.parse(raw) : [];
+}
+function saveUsersRegistry(list) {
+  localStorage.setItem(LS_USERS, JSON.stringify(list));
+}
+function findUserByEmail(email) {
+  const list = getUsersRegistry();
+  return list.find(u => (u.email || "").toLowerCase() === (email || "").toLowerCase());
+}
+function addUserToRegistry(profile) {
+  const list = getUsersRegistry();
+  if (findUserByEmail(profile.email)) return { ok: false, error: "Email already registered" };
+  const id = Math.random().toString(36).slice(2, 10);
+  const next = { id, role: "user", ...profile };
+  list.push(next);
+  saveUsersRegistry(list);
+  return { ok: true, user: next };
+}
+function updateUserInRegistry(id, updates) {
+  const list = getUsersRegistry();
+  const idx = list.findIndex(u => u.id === id);
+  if (idx === -1) return { ok: false, error: "User not found" };
+  list[idx] = { ...list[idx], ...updates };
+  saveUsersRegistry(list);
+  return { ok: true, user: list[idx] };
+}
+function deleteUserFromRegistry(id) {
+  const list = getUsersRegistry();
+  const next = list.filter(u => u.id !== id);
+  saveUsersRegistry(next);
+  return { ok: true };
+}
