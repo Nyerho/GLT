@@ -42,20 +42,23 @@ function getTransactions() {
 
 /* Page initializers (each page checks for its own markers) */
 function initDashboardPage() {
-  // Auth gate: redirect if not logged in
-  const user = loadUser();
-  const isAuthed = !!user && (!!user.email || !!user.username || !!user.uid);
-  if (!isAuthed) {
-    alert("Please login to access your Dashboard.");
-    location.href = "login.html";
-    return;
-  }
-  const balanceEl = document.getElementById("dash-balance");
-  if (!balanceEl) return;
-  const acc = ensureAccount();
-  document.getElementById("dash-balance").textContent = formatCurrency(acc.balance);
-  document.getElementById("dash-intrade").textContent = formatCurrency(acc.inTrade || 0);
-  document.getElementById("dash-pnl").textContent = formatCurrency(acc.pnl || 0);
+    // Only run on dashboard page when its elements are present
+    const balanceEl = document.getElementById("dash-balance");
+    if (!balanceEl) return;
+
+    // Auth gate: redirect if not logged in
+    const user = loadUser();
+    const isAuthed = !!user && (!!user.email || !!user.username || !!user.uid);
+    if (!isAuthed) {
+        alert("Please login to access your Dashboard.");
+        location.href = "login.html";
+        return;
+    }
+
+    const acc = ensureAccount();
+    document.getElementById("dash-balance").textContent = formatCurrency(acc.balance);
+    document.getElementById("dash-intrade").textContent = formatCurrency(acc.inTrade || 0);
+    document.getElementById("dash-pnl").textContent = formatCurrency(acc.pnl || 0);
 }
 function initDepositPage() {
   const form = document.getElementById("deposit-form");
