@@ -231,13 +231,13 @@ function initAuthPages() {
 /* Header UI: KYC indicator + theme toggle */
 function initHeaderUI() {
   // KYC indicator status from localStorage
-  const indicator = document.getElementById("kyc-indicator");
-  if (indicator) {
+  const indicatorEl = document.getElementById("kyc-indicator");
+  if (indicatorEl) {
     const status = (localStorage.getItem("kycStatus") || "pending").toLowerCase();
-    indicator.classList.remove("kyc-started", "kyc-pending", "kyc-verified");
+    indicatorEl.classList.remove("kyc-started", "kyc-pending", "kyc-verified");
     const normalized = ["started", "pending", "verified"].includes(status) ? status : "pending";
-    indicator.classList.add(`kyc-${normalized}`);
-    const label = indicator.querySelector(".kyc-label");
+    indicatorEl.classList.add(`kyc-${normalized}`);
+    const label = indicatorEl.querySelector(".kyc-label");
     if (label) label.textContent = `KYC: ${normalized.charAt(0).toUpperCase()}${normalized.slice(1)}`;
   }
 
