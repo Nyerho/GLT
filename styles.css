@@ -1142,3 +1142,43 @@ a:hover { color: var(--accent-3); }
   text-decoration: none;
 }
 .link-accent:hover { text-decoration: underline; }
+
+/* Deposit page enhancements */
+.finance-hero {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  background: url("CSS/images/auth.jpg") center/cover no-repeat fixed;
+}
+.finance-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 30, 15, 0.6), rgba(15, 30, 15, 0.85));
+}
+.finance-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+[data-theme="dark"] .finance-card {
+  background: rgba(24, 24, 24, 0.9);
+  color: #e9ecef;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.method-pill {
+  font-weight: 600;
+}
+.method-pill:hover {
+  transform: translateY(-1px);
+}
+.btn-check:checked + .method-pill {
+  background-color: #198754;
+  color: #fff;
+  border-color: #198754;
+}
+.quick-amounts .btn {
+  margin-right: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+.summary-card strong {
+  font-variant-numeric: tabular-nums;
+}

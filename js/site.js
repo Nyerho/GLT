@@ -65,16 +65,83 @@ function initDashboardPage() {
 function initDepositPage() {
   const form = document.getElementById("deposit-form");
   if (!form) return;
+
+  // Initialize balance display
+  const acc = ensureAccount();
+  const balanceEl = document.getElementById("current-balance");
+  if (balanceEl) balanceEl.textContent = formatCurrency(acc.balance);
+
+  const amountEl = document.getElementById("deposit-amount");
+  const methodRadios = Array.from(document.querySelectorAll('input[name="deposit-method"]'));
+  const hintEl = document.getElementById("method-hint");
+  const sumAmountEl = document.getElementById("sum-amount");
+  const sumFeeEl = document.getElementById("sum-fee");
+  const sumTotalEl = document.getElementById("sum-total");
+
+  const methodHints = {
+    crypto: "Network fee applies; speed varies by network.",
+    card: "Instant deposit. Processing fee applies.",
+    bank: "May take 1–3 business days. Minimal bank processing fee applies."
+  };
+
+  const calcFee = (method, amt) => {
+    if (!Number.isFinite(amt) || amt <= 0) return 0;
+    switch (method) {
+      case "card": return Number((amt * 0.025).toFixed(2));        // 2.5%
+      case "bank": return Number(Math.min(amt * 0.01, 25).toFixed(2)); // 1% up to $25 cap
+      case "crypto": return Number(Math.max(amt * 0.005, 1).toFixed(2)); // 0.5% or $1 minimum
+      default: return 0;
+    }
+  };
+
+  const activeMethod = () => {
+    const checked = methodRadios.find(r => r.checked);
+    return checked ? checked.value : "crypto";
+  };
+
+  const renderSummary = () => {
+    const amt = Number(amountEl.value || 0);
+    const method = activeMethod();
+    const fee = calcFee(method, amt);
+    const total = Number((amt + fee).toFixed(2));
+    sumAmountEl.textContent = formatCurrency(amt);
+    sumFeeEl.textContent = formatCurrency(fee);
+    sumTotalEl.textContent = formatCurrency(total);
+    if (hintEl) hintEl.textContent = methodHints[method] || "";
+  };
+
+  methodRadios.forEach(r => r.addEventListener("change", renderSummary));
+  amountEl.addEventListener("input", renderSummary);
+  Array.from(document.querySelectorAll(".qa")).forEach(btn => {
+    btn.addEventListener("click", () => {
+      const v = Number(btn.getAttribute("data-amt") || 0);
+      if (v > 0) {
+        amountEl.value = String(v);
+        renderSummary();
+      }
+    });
+  });
+
+  renderSummary();
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const amount = Number(document.getElementById("deposit-amount").value || 0);
-    if (!Number.isFinite(amount) || amount <= 0) return alert("Enter a valid amount.");
-    const acc = ensureAccount();
-    acc.balance = Number((acc.balance + amount).toFixed(2));
-    saveAccount(acc);
-    addTransaction("Deposit", amount, "Completed");
-    alert("Deposit recorded successfully.");
-    location.href = "dashboard.html";
+    const amt = Number(amountEl.value || 0);
+    if (!Number.isFinite(amt) || amt <= 0) {
+      showToast("Enter a valid amount (greater than 0).", "error");
+      return;
+    }
+    const method = activeMethod();
+    const fee = calcFee(method, amt);
+    const ref = "DEP-" + Date.now().toString(36).toUpperCase();
+
+    const accNow = ensureAccount();
+    accNow.balance = Number((accNow.balance + amt).toFixed(2));
+    saveAccount(accNow);
+    addTransaction("Deposit", amt, "Completed", ref);
+
+    showToast(`Deposit of ${formatCurrency(amt)} recorded. Ref: ${ref}`, "success");
+    setTimeout(() => { location.href = "dashboard.html"; }, 800);
   });
 }
 function initWithdrawPage() {
@@ -432,6 +499,7 @@ function initHeaderUI() {
 /* Kick off initializers on page load */
 document.addEventListener("DOMContentLoaded", () => {
   ensureAccount(); // make sure we have a base account
+  ensureToastContainer(); // make sure toast region exists
   initDashboardPage();
   initDepositPage();
   initWithdrawPage();
@@ -487,4 +555,31 @@ function deleteUserFromRegistry(id) {
   const next = list.filter(u => u.id !== id);
   saveUsersRegistry(next);
   return { ok: true };
+}
+
+// Utility: toasts for user feedback
+function ensureToastContainer() {
+  if (document.getElementById("toast-container")) return;
+  const wrap = document.createElement("div");
+  wrap.id = "toast-container";
+  wrap.className = "toast-container position-fixed bottom-0 end-0 p-3";
+  document.body.appendChild(wrap);
+}
+function showToast(message, type = "success") {
+  ensureToastContainer();
+  const wrap = document.getElementById("toast-container");
+  const toastEl = document.createElement("div");
+  const bg = type === "error" ? "text-bg-danger" : (type === "warning" ? "text-bg-warning" : "text-bg-success");
+  toastEl.className = `toast align-items-center ${bg} border-0`;
+  toastEl.setAttribute("role", "alert");
+  toastEl.setAttribute("aria-live", "assertive");
+  toastEl.setAttribute("aria-atomic", "true");
+  toastEl.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${message}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>`;
+  wrap.appendChild(toastEl);
+  const toast = new bootstrap.Toast(toastEl, { delay: 2500 });
+  toast.show();
 }
